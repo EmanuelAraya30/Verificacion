@@ -1,12 +1,16 @@
-class fifo_driver #(parameter pckg_sz = 32, parameter drvrs=5);
+ ///////////////////////////////////////////////////////////////////////////////////////////////
+ // Driver: Objeto es responsable de la interacción entre el ambiente y el la Bus bajo prueba //
+ ///////////////////////////////////////////////////////////////////////////////////////////////
+
+class fifo_driver #(parameter bits = 1, parameter drvrs=5, parameter pckg_sz = 32);
+	virtual bus_if #(.pckg_sz(pckg_sz), .drvrs(drvrs)) vif;
 	bit push;
 	bit pop;
 	bit pending;
 	bit [pckg_sz-1:0] Data_pop;
 	bit [pckg_sz-1:0] fifo_queue [$];
 	int ident;
-	
-	virtual bus_intf #(.pckg_sz(pckg_sz), .drvrs(drvrs)) vif;
+
 	
 	function new(int identify);
 		this.push = 0;
@@ -27,16 +31,17 @@ class fifo_driver #(parameter pckg_sz = 32, parameter drvrs=5);
 	
 	
 	task Dout_uptate() // Visto desde la FIFO: actualiza el valor de salida de la fifo (o sea el valor de entrada del bus) y el valor de pending 
-	forever begin
-		@(posedge vif.clk);
-			vif.Data_pop[0][identify] = fifo_queue[0]; // Indica que el dato de entrada al bus de datos va a estar almacenado en la posicion 
-			if(pop ==1) begin
-				fifo_queue.pop_front(); //Eliminando el primer elemento de la fifo.
-			end 
-			
-			if (fifo_queue.size ==0)begin //Se revisa si el tamaño de la queue (fifo) es 0 implica que no hay dato pendiente que enviar al bus de datos
-				pending = 0;
-			end
+		forever begin
+			@(posedge vif.clk);
+				vif.Data_pop[0][identify] = fifo_queue[0]; // Indica que el dato de entrada al bus de datos va a estar almacenado en la posicion 
+				if(pop ==1) begin
+					fifo_queue.pop_front(); //Eliminando el primer elemento de la fifo.
+				end 
+				
+				if (fifo_queue.size ==0)begin //Se revisa si el tamaño de la queue (fifo) es 0 implica que no hay dato pendiente que enviar al bus de datos
+					pending = 0;
+				end
+		end
 	endtask
 	
 	function void Din_update(bit [pckg_sz-1:0] dato); 

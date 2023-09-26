@@ -22,7 +22,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   constraint const_Rx {Rx < drvrs; Rx >= 0; Rx != Tx;}
   constraint const_Tx {Tx < drvrs; Tx >= 0}
 
-  function new(int ret =0,bit[pckg_sz-1:0] dto=0,int tmp = 0, instruct tpo = cant_transac, int mx_rtrd = 20, tx, rx);
+  function new(int ret =0,bit[pckg_sz-1:0] dto=0,int tmp = 0, instruct tpo = cant_transac, int mx_rtrd = 20, tx = 0, rx = 0);
     this.retardo = ret;
     this.dato = dto;
     this.tiempo = tmp;
@@ -62,6 +62,29 @@ interface bus_if #(parameter bits = 1,parameter drvrs = 4, parameter pckg_sz = 1
   logic [pckg_sz-1:0] D_push[bits-1:0][drvrs-1:0];
 endinterface
 
+////////////////////////////////////////////////
+// Objeto de transacción usado en el monitor  //
+////////////////////////////////////////////////
+
+class trans_monitor #(parameter pckg_sz = 32);
+  bit[pckg_sz-1:0] dato; // este es el dato de la transacción
+  int tiempo; //Representa el tiempo  de la simulación en el que se ejecutó la transacción 
+  int [7:0] Rx;
+
+  function new(bit[pckg_sz-1:0] dto=0,int tmp = 0, int rx= 0);
+    this.dato = dto;
+    this.tiempo = tmp;
+    this.Rx = rx;
+  endfunction
+  
+
+    
+  function void print(string tag = "");
+    $display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,tiempo,this.dato,this.Rx);
+  endfunction
+
+endclass
+
 ////////////////////////////////////////////////////
 // Objeto de transacción usado en el scroreboard  //
 ////////////////////////////////////////////////////
@@ -73,3 +96,5 @@ endinterface
 ///////////////////////////////////////////////////////////////////////////////////////
 
 typedef mailbox #(instruct) comando_instrucciones_mbx;
+
+typedef mailbox #(trans_monitor #(.pckg_sz(pckg_sz))) cmd_mnt_chk_mbx;
