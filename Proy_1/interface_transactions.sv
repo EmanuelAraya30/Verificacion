@@ -74,18 +74,18 @@ endinterface
 class trans_monitor #(parameter pckg_sz = 32);
   bit[pckg_sz-1:0] dato; // este es el dato de la transacción
   int tiempo; //Representa el tiempo  de la simulación en el que se ejecutó la transacción 
-  bit [7:0] Rx;
+  bit [7:0] Rx_mnt;
 
-  function new(bit[pckg_sz-1:0] dto=0,int tmp = 0, int rx= 0);
+  function new(bit[pckg_sz-1:0] dto=0,int tmp = 0, int rx-mnt= 0);
     this.dato = dto;
     this.tiempo = tmp;
-    this.Rx = rx;
+    this.Rx_mnt = rx_mnt;
   endfunction
   
 
     
   function void print(string tag = "");
-    $display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,tiempo,this.dato,this.Rx);
+    $display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,tiempo,this.dato,this.Rx_mnt);
   endfunction
 
 endclass
@@ -119,7 +119,7 @@ class trans_sb #(parameter pckg_sz=16);
     this.completado = 0;
   endfunction
 
-  task calc_latencia;
+  task calc_laten;
     this.laten = this.tiempo_rec - this.tiempo_env;
   endtask
   
@@ -143,6 +143,8 @@ endclass
 // Definicion de mailboxes de tipo definido intruct para comunicar las interfaces //
 ////////////////////////////////////////////////////////////////////////////////////
 
+typedef mailbox #(trans_bus) trans_drv_chk_mbx;
 typedef mailbox #(trans_monitor) trans_mntr_chkr_mbx;  //mailbox de monitor a checker
 typedef mailbox #(trans_sb) trans_chkr_sb_mbx;  //mailbox de checker a scoreboard
 typedef mailbox #(rpt) trans_rpt_mbx;
+
