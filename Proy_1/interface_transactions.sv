@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 typedef enum {cant_transac, cant_disp, rst_test, alea_ret, transac_error, aleat_brdst, alt_transac, simul_transac, random_rst} instruct; 
-typedef enum {rpt_prom, rpt_bw_max, rpt_bw_min, rpt_transac} reporte; 
+typedef enum {rpt_prom, rpt_bw_max, rpt_bw_min, rpt_transac} rpt; 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -145,4 +145,4 @@ endclass
 
 typedef mailbox #(trans_monitor) trans_mntr_chkr_mbx;  //mailbox de monitor a checker
 typedef mailbox #(trans_sb) trans_chkr_sb_mbx;  //mailbox de checker a scoreboard
-typedef mailbox #(reporte) rpt_mbx;
+typedef mailbox #(rpt) trans_rpt_mbx;
