@@ -56,12 +56,11 @@ endclass
 
 
 
-class monitor_hijo #(parameter drvrs = 5, parameter bits = 1,
-                parameter pckg_sz = 32);
+class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz = 32);
 
     fifo_monitor #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz)) FiFo_out;
     trans_monitor #(.pckg_sz(pckg_sz)) trans_mntr;
-    monitor_checker_mailbox mcm;
+    mcm monitor_checker_mailbox;
 
     
     int id;
@@ -87,7 +86,7 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1,
                 trans_mntr = Rx;
                 @(posedge FiFo_out.vif.clk);
                 trans_mntr.dato = FiFo_out.D_push;
-                Monitor_Checker_Mailbox.put(trans_mntr);
+                monitor_checker_mailbox.put(trans_mntr);
                 trans_mntr.print("Monitor: Transaccion recibida");
             end
             @(posedge FiFo_out.vif.clk);
