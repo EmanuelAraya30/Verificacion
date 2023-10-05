@@ -28,16 +28,16 @@ class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz 
     task PUSH();
         forever begin
             @(posedge vif.clk);
-            push=vif.push[0][ident];
+            push=vif.push[0][id];
         end
     endtask
 
     task D_PUSH();
         forever begin
             @(posedge vif.clk);
-            D_push=vif.D_push[0][ident]; // Revisar el bus_if
+            D_push=vif.D_push[0][id]; // Revisar el bus_if
             if(push==1)begin
-                fifo_queue.push_back(D_push);
+                c.push_back(D_push);
                 pndng = 1;
             end
         end
@@ -46,8 +46,8 @@ class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz 
 	
 	
 	function void POP();
-		D_pop=fifo_queue.pop_front();
-		if(fifo_queue.size()==0)begin
+		D_pop=c.pop_front();
+		if(c.size()==0)begin
 			pndng =0;
 		end
 	endfunction	
@@ -81,9 +81,9 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz 
             trans_mntr=new;
             @(posedge FiFo_out.vif.clk);
             if (FiFo_out.pndng == 1) begin
-                FiFo_out.popf();
+                FiFo_out.POP();
                 trans_mntr.tiempo = $time;
-                trans_mntr = Rx;
+                trans_mntr = id;
                 @(posedge FiFo_out.vif.clk);
                 trans_mntr.dato = FiFo_out.D_push;
                 monitor_checker_mailbox.put(trans_mntr);

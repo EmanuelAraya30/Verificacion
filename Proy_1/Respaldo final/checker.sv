@@ -14,7 +14,7 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
 
   //Se generan Queues para almacenar datos
   function new();
-    for (i = 0 ; i <drvrs ; i++) begin
+    for (int i = 0 ; i <drvrs ; i++) begin
       emul_queue[i] = {};
     end
   endfunction 
