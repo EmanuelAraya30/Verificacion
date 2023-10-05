@@ -26,7 +26,7 @@ task run;
 		aleatorios:begin
 			for (int i=0;i<num_transacciones;i++) begin //
 			    $display("[%g] Agente-Generador: se ha escogido la prueba aleatoria", $time);
-			    transaccion.new;
+			    transaccion = new;
 			    transaccion.max_retardo=max_retardo; // Aleatorizacion de 0 a 20 ciclos de clk
 				transaccion.randomize();
 				transaccion.print("Agente-Generador: Transaccion creada");
@@ -36,7 +36,7 @@ task run;
 		genericos:begin
 			for (int i=0;i<num_transacciones;i++) begin
 				$display("[%g] Agente-Generador: prueba de envio de paquetes genéricos", $time);
-				transaccion=new;
+				transaccion = new;
 				//transaccion.max_retardo=max_retardo; // Aleatorizacion de 0 a 20 ciclos de clki
 				transaccion.const_retardo.constraint_mode(1);
 				transaccion.const_dispositivos.constraint_mode(1);
