@@ -18,7 +18,7 @@ class environment #(parameter pckg_sz=16, parameter profundidad=8, parameter drv
 	//trans_bus_mbx mntr_chkr_mbx;        //Mailbox del driver al checker
 	//trans_scoreboard_mbx chkr_sb_mbx;  //Mailbox del checker al scoreboard
 	//test_scoreboard_mbx tst_sb_mbx;    //Mailbox del test al scoreboard
-	test_agent_mbx tst_agnt_mbx;       //Mailbox del test al agente
+	tst_agnt_mbx test_agent_mbx;       //Mailbox del test al agente
 	
 	function new();
 		// Instanciacion de los mailboxes
@@ -26,7 +26,7 @@ class environment #(parameter pckg_sz=16, parameter profundidad=8, parameter drv
 		agnt_drv_mbx   = new();
 		//chkr_sb_mbx    = new();
 		//tst_sb_mbx     = new();
-		tst_agnt_mbx   = new();
+		test_agent_mbx   = new();
 		//agnt_chkr_mbx  = new();
 
 		// Instalacion de los componenetes del ambiente
@@ -46,7 +46,7 @@ class environment #(parameter pckg_sz=16, parameter profundidad=8, parameter drv
 		//checker_inst.chkr_sb_mbx    = chkr_sb_mbx;
 		//scoreboard_inst.chkr_sb_mbx = chkr_sb_mbx;
 		//scoreboard_inst.tst_sb_mbx  = tst_sb_mbx;
-		agent_inst.tst_agnt_mbx      = tst_agnt_mbx;
+		agent_inst.test_agent_mbx      = test_agent_mbx;
 		agent_inst.agnt_drv_mbx      = agnt_drv_mbx;
 		agent_inst.num_transacciones = num_transacciones;
 		//agent_inst.randomize();
