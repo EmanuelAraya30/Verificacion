@@ -11,24 +11,24 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1);
 
   // Declaracion de los Mailboxes
   
-  test_agent_mailbox tam; 
-  agent_driver_mailbox adm [drvrs];
-  driver_checker_mailbox dcm;
-  monitor_checker_mailbox mcm;
-  checker_scoreboard_mailbox csm;
-  reporte_mailbox rm;
+  tam test_agent_mailbox; 
+  adm agent_driver_mailbox[drvrs];
+  dcm driver_checker_mailbox;
+  mcm monitor_checker_mailbox;
+  csm checker_scoreboard_mailbox;
+  rm reporte_mailbox;
   
   
   //Se inicializan los mailbox pertenecientes a los drivers
   function new();
     for(int j=0; j< drvrs; j++)begin
-      adm[j]=new();
+      agent_driver_mailbox[j]=new();
     end
     
-    csm=new();
-	tam=new();
-	dcm=new();
-	mcm=new();
+  checker_scoreboard_mailbox=new();
+  test_agent_mailbox=new();
+	driver_checker_mailbox=new();
+	monitor_checker_mailbox=new();
  
       
 	//intancias de componentes del ambiente
@@ -40,20 +40,20 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1);
 	
 	//Se efectua la conexión de los mailbox
 	for(int j=0; j<drvrs; j++)begin
-        monitor_inst.FiFo_son[j].mcm       = mcm;
-        driver_padre_inst.driver_h[j].adm  = adm[j];
-        driver_padre_inst.driver_h[j].dcm  = dcm;
-        agent_inst.adm[j]                  = adm[j];
+        monitor_inst.FiFo_son[j].monitor_checker_mailbox       = monitor_checker_mailbox;
+        driver_padre_inst.driver_h[j].agent_driver_mailbox  = agent_driver_mailbox[j];
+        driver_padre_inst.driver_h[j].driver_checker_mailbox  = driver_checker_mailbox;
+        agent_inst.agent_driver_mailbox[j]                  = agent_driver_mailbox[j];
       end
 	
 	//Conexion de las interfaces y mailboxes
     
-    scoreboard_inst.rm          =rm;
-    checker_inst.dcm           =dcm;
-    checker_inst.mcm           =mcm;
-    checker_inst.csm           =csm;
-    scoreboard_inst.csm        =csm;
-	agent_inst.tam             =tam;
+    scoreboard_inst.reporte_mailbox          =reporte_mailbox;
+    checker_inst.driver_checker_mailbox           =driver_checker_mailbox;
+    checker_inst.monitor_checker_mailbox           =monitor_checker_mailbox;
+    checker_inst.checker_scoreboard_mailbox           =checker_scoreboard_mailbox;
+    scoreboard_inst.checker_scoreboard_mailbox        =checker_scoreboard_mailbox;
+	agent_inst.test_agent_mailbox             =test_agent_mailbox;
   endfunction
   
   virtual task inicia();
