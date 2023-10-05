@@ -1,9 +1,9 @@
 source /mnt/vol_NFS_rh003/estudiantes/archivos_config/synopsys_tools.sh
 
 
-for width in  32
+for pckg_sz in  32
         do
-        for n_term in 4 8 16
+        for drvrs in 4 8 16
         do
         printf "\x60define PRMT \n" > parameters.sv
         printf "parameter width = %d;\nparameter n_term = %d;\n" $width $n_term  >> parameters.sv
