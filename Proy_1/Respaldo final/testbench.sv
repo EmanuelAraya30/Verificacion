@@ -40,12 +40,12 @@ module tb;
     );
 	initial begin
 		clk=0;
-		testbench=new();
+		test_inst=new();
       
-      testbench.ambiente_inst.vif=vif;
+		test_inst.ambiente_inst.vif=vif;
 
 		fork
-		testbench.run();
+			test_inst.run();
 		join_none
 
 	end
