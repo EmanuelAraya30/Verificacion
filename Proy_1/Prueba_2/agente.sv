@@ -7,7 +7,7 @@ class agent #(parameter pckg_sz=16, parameter profundidad=8);
 	int num_transacciones;
 	//int max_retardo;
 	tipo_trans instruccion;
-	bit [pckg-1:0] dto_spec;
+	bit [pckg_sz-1:0] dto_spec;
 	//instrucciones_agente instruccion;
 	trans_bus #(.pckg_sz(pckg_sz)) transaccion;
 	int cantidad;
@@ -16,9 +16,9 @@ task run;
 	$display("Se inicializa el agente-generador en tiempo [%g] ",$time);
 	begin
 	#1
-	cantidad = test_agent_mbx.num();
+	cantidad = test_agent_mbx.numero();
 	$display("Numero de pruebas %g",cantidad);	
-	if(test_agent_mbx.num() > 0)begin
+	if(test_agent_mbx.numero() > 0)begin
 		$display("[%g] Agente-Generador: se recibe instruccion", $time);
 		$display("Numero de transacciones %g",num_transacciones);
 		test_agent_mbx.get(instruccion);
@@ -43,12 +43,12 @@ task run;
 				transaccion.const_destino.constraint_mode(1);
 				transaccion.const_origen.constraint_mode(1);
 				transaccion.randomize();
-				transaccion.num=num_transacciones;
+				transaccion.numero=num_transacciones;
 				transaccion.tipo=genericos;
 				//transaccion.mensajes=num_transacciones;
 				transaccion.D_push={transaccion.Rx,transaccion.dato}; //Uno el dato del destino con el mensaje a enviar 
 				transaccion.print("Agente-Generador: Transaccion creada y enviada al Driver-Monitor");
-				agnt_drv_mbx.put(transaccion);
+				agnt_drvr_mbx.put(transaccion);
 				transaccion.print("Agente-Generador: Transaccion creada y enviada al Checker");
 			end
 		end

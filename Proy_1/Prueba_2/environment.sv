@@ -39,7 +39,7 @@ class ambiente #(parameter pckg_sz=16, parameter profundidad=8, parameter drvrs=
 		// Conexion de las interfaces y los mailboxes en el ambiente
 		driver_inst.vif             = _if;
 		monitor_inst.vif            = _if;
-		driver_inst.agnt_drv_mbx    = agnt_drv_mbx;
+		driver_inst.vif    = agnt_drv_mbx;
 		//monitor_inst.mntr_chkr_mbx   =mntr_chkr_mbx;
 		//checker_inst.drv_chkr_mbx   = drv_chkr_mbx;
 		//checker_inst.agnt_chk_mbx   = agnt_chk_mbx;
@@ -47,7 +47,7 @@ class ambiente #(parameter pckg_sz=16, parameter profundidad=8, parameter drvrs=
 		//scoreboard_inst.chkr_sb_mbx = chkr_sb_mbx;
 		//scoreboard_inst.tst_sb_mbx  = tst_sb_mbx;
 		agent_inst.test_agent_mbx      = test_agent_mbx;
-		agent_inst.agnt_drv_mbx      = agnt_drv_mbx;
+		agent_inst.vif      = agnt_drv_mbx;
 		agent_inst.num_transacciones = num_transacciones;
 		//agent_inst.randomize();
 		//agent_inst.agnt_chkr_mbx     = agnt_chkr_mbx;

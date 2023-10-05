@@ -39,7 +39,7 @@ class trans_bus #(parameter pckg_sz=16); //Esta transferencia se usa en el (pck3
        	constraint const_origen{Tx<16; Tx>=0;}
        	constraint const_destino{Rx<16; Rx>=0; Rx != Tx;}
 	
-	function new(int nm=4, int ret=1, bit[width-9:0] dto=0, int tmp=0, tipo_trans tpo=aleatorios, rx=0, tx=0);
+	function new(int nm=4, int ret=1, bit[pckg_sz-9:0] dto=0, int tmp=0, tipo_trans tpo=aleatorios, rx=0, tx=0);
 		this.numero       = nm;
 		this.retardo     = ret;
 		this.dato        = dto;
