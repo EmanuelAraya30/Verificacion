@@ -2,17 +2,17 @@
  // Monitor: este objeto es responsable de leer las señales de salida del DUT //
  ///////////////////////////////////////////////////////////////////////////////
 
-class fifo_monitor #(parameter bits = 1,
-                     parameter drvrs = 5,
-                     parameter pckg_sz = 32);
+class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz = 32);
     virtual bus_if #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz), .broadcast(broadcast))vif;
+
+
 
     bit pop;
     bit push;
     bit pndng;
-    bit [width-1:0] D_pop;
-    bit [width-1:0] D_push;
-    bit [width-1:0] c [$];
+    bit [pckg_sz-1:0] D_pop;
+    bit [pckg_sz-1:0] D_push;
+    bit [pckg_sz-1:0] c [$];
     int id;
     
     //Se realiza un constructor por cada ID que se registre
@@ -21,7 +21,7 @@ class fifo_monitor #(parameter bits = 1,
         this.push = 0;
         this.pndng = 0;
         this.D_pop = 0;
-        this.fifo_queue = {};
+        this.c = {};
         this.id=ID;  
     endfunction
 

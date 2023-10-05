@@ -69,8 +69,7 @@ class trans_sb #(parameter pckg_sz=16);
   instruct tipo;
   int dev_env;
   int dev_rec;
-  //bit reset;
-  //bit completado;
+
   
   function clean();
     this.dato_env = 0;
@@ -78,11 +77,9 @@ class trans_sb #(parameter pckg_sz=16);
     this.tiempo_env = 0;
     this.tiempo_rec = 0;
     this.laten = 0;
-    this.tipo = rst_test;
+    this.tipo = trans_aleat;
     this.dev_env = 0;
     this.dev_rec = 0;
-    this.reset = 0;
-    this.completado = 0;
   endfunction
 
   task calc_laten;
