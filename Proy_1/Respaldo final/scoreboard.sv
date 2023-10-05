@@ -37,7 +37,7 @@ task run;
       transacciones_i.print("Score Board: transacción recibida desde el checker");
       retardo_total = retardo_total + transacciones_i.latencia;
       ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.latencia;  
-      cont_intruct++:
+      cont_intruct++;
       inst_x_drvrs[transacciones_i.dev_rec]++;
 	  cont_inst_bw++;
       tiempo_fin = transacciones_i.tiempo_rec;
