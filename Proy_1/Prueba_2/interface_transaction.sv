@@ -28,25 +28,26 @@ class trans_bus #(parameter pckg_sz=16); //Esta transferencia se usa en el (pck3
 	tipo_trans tipo; // Prueba
 	randc int DRIVERS;
 	int numero;
-	//int max_retardo;
+	int max_retardo;
 	randc logic[7:0] Rx; // Dispositivo destino		*** int destino ***
 	randc int Tx;         // Dispositivo origen 		*** int origen  ***
     bit [pckg_sz-1:0] D_push;   
 	bit [pckg_sz-1:0] D_pop;
 
-	constraint const_retardo{retardo<20; retardo>0;}
+	constraint const_retardo{retardo<max_retardo; retardo>0;}
        	constraint const_dispositivos{DRIVERS<16; DRIVERS>3;}
        	constraint const_origen{Tx<16; Tx>=0;}
        	constraint const_destino{Rx<16; Rx>=0; Rx != Tx;}
 	
-	function new(int nm=4, int ret=1, bit[pckg_sz-9:0] dto=0, int tmp=0, tipo_trans tpo=aleatorios, rx=0, tx=0);
+	function new(int nm=4, int ret=1, int max_ret = 20, bit[pckg_sz-9:0] dto=0, int tmp=0, tipo_trans tpo=aleatorios, rx=0, tx=0);
 		this.numero       = nm;
-		this.retardo     = ret;
-		this.dato        = dto;
-		this.tiempo      = tmp;
-		this.tipo        = tpo;
-		this.Rx          = rx;
-		this.Tx          = tx;
+		this.retardo      = ret;
+		this.max_retardo  = max_ret;
+		this.dato         = dto;
+		this.tiempo       = tmp;
+		this.tipo         = tpo;
+		this.Rx           = rx;
+		this.Tx           = tx;
 	endfunction
 	
 	function void print(string tag="");
