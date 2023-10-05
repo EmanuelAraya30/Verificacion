@@ -13,7 +13,7 @@ reporte reporte_inst;
 int ret_drvrs[drvrs]; //Retardo x driver
 int cont_intruct_term[drvrs]; //contador de instrucciones x terminal
 int retardo_total = 0; // Retardo total
-//int inst_x_drvrs[drvrs]; // intrucciones x driver
+int inst_x_drvrs[drvrs]; // intrucciones x driver
 int cont_intruct = 0; //contador de instrucciones
 int cont_inst_bw = 0;
 int inicio = 0; //para calcular el tiempo inicial
@@ -35,8 +35,8 @@ task run;
     if(trans_chkr_sb_mbx.num()>0)begin
       trans_chkr_sb_mbx.get(transacciones_i);
       transacciones_i.print("Score Board: transacción recibida desde el checker");
-      retardo_total = retardo_total + transacciones_i.latencia;
-      ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.latencia;  
+      retardo_total = retardo_total + transacciones_i.laten;
+      ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.laten;  
       cont_intruct++;
       inst_x_drvrs[transacciones_i.dev_rec]++;
 	  cont_inst_bw++;
@@ -50,8 +50,8 @@ task run;
     end 
     else begin
       if(trans_rpt_mbx.num()>0)begin
-        trans_rpt_mbx.get(orden);
-        case(orden)
+        trans_rpt_mbx.get(reporte_inst);
+        case(reporte_inst)
         rpt_prom: begin
             $display("[%g]Score Board: Recibida Orden Retardo Promedio", $time);
             retardo_promedio = retardo_total/cont_intruct;

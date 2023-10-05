@@ -40,7 +40,7 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1);
 	
 	//Se efectua la conexión de los mailbox
 	for(int j=0; j<drvrs; j++)begin
-        monitor_inst.FiFo_son[j].monitor_checker_mailbox       = monitor_checker_mailbox;
+        monitor_padre_inst.FiFo_son[j].monitor_checker_mailbox  = monitor_checker_mailbox;
         driver_padre_inst.driver_h[j].agent_driver_mailbox  = agent_driver_mailbox[j];
         driver_padre_inst.driver_h[j].driver_checker_mailbox  = driver_checker_mailbox;
         agent_inst.agent_driver_mailbox[j]                  = agent_driver_mailbox[j];

@@ -39,9 +39,9 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
           to_sb.dato_rec=mntr_trans.dato;
           to_sb.tiempo_env=emul_queue[mntr_trans.Rx_mnt][i].tiempo;
           to_sb.tiempo_rec=mntr_trans.tiempo;
-          to_sb.calc_latencia();
+          to_sb.calc_laten();
           to_sb.tipo=emul_queue[mntr_trans.Rx_mnt][i].tipo;
-          to_sb.dev_env=emul_queue[mntr_trans.Rx_mnt][i].dev_env;
+          to_sb.Tx=emul_queue[mntr_trans.Rx_mnt][i].Tx;
           to_sb.dev_rec=mntr_trans.Rx_mnt;
           to_sb.print("Checker: Transacción completa");
           chkr_sb_mbx.put(to_sb);//envia la transaccion al scoreboard
