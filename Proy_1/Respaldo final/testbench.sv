@@ -1,14 +1,14 @@
 
 
 `ifndef PRMT
-	parameter width = 32;
-    	parameter n_term = 16;
+	parameter pckg_sz = 32;
+    	parameter drvrs = 16;
 `endif
 
 
-`include "library.sv"
+`include "Library.sv"
 `include "interface_transactions.sv"
-`include "agent.sv"
+`include "agente.sv"
 `include "driver.sv"
 `include "monitor.sv"
 `include "checker.sv"
