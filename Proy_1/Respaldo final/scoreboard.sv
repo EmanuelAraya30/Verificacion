@@ -3,8 +3,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class score_board #(parameter pckg_sz=16, parameter drvrs=5, parameter pckg_sz=32);
-trans_chkr_sb_mbx  csm;
-trans_rpt_mbx rm;
+csm trans_chkr_sb_mbx;
+rm trans_rpt_mbx;
 trans_sb #(.pckg_sz(pckg_sz))transacciones_i; 
 trans_sb #(.pckg_sz(pckg_sz))scoreboard[$]; // esta es la estructura dinámica que maneja el scoreboard  
 trans_sb #(.pckg_sz(pckg_sz)) auxiliar_trans;
@@ -32,8 +32,8 @@ task run;
   $display("[%g] El Score Board fue inicializado",$time);
   forever begin
     #5
-    if(csm.num()>0)begin
-      csm.get(transacciones_i);
+    if(trans_chkr_sb_mbx.num()>0)begin
+      trans_chkr_sb_mbx.get(transacciones_i);
       transacciones_i.print("Score Board: transacción recibida desde el checker");
       retardo_total = retardo_total + transacciones_i.latencia;
       ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.latencia;  
@@ -49,8 +49,8 @@ task run;
       scoreboard.push_back(transacciones_i);
     end 
     else begin
-      if(rm.num()>0)begin
-        rm.get(orden);
+      if(trans_rpt_mbx.num()>0)begin
+        trans_rpt_mbx.get(orden);
         case(orden)
         rpt_prom: begin
             $display("[%g]Score Board: Recibida Orden Retardo Promedio", $time);
