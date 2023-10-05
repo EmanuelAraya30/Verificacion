@@ -1,17 +1,17 @@
 // Definición de la cola que simula la fifo a la interfase y y la la salida de conexion al dut 
 class fifo #(parameter pckg_sz=16, parameter profundidad=8);
-	bit [pckg_sz-1:0]Data_push;
+	bit [pckg_sz-1:0]D_push;
 	bit [pckg_sz-1:0]Data_pop;
 	bit pndng;
     bit [pckg_sz-1:0] cola [$];
 
 	task push(); // Task para hacer el push en la fifo simulada
 		if (cola.size>profundidad) begin
-			cola.push_back(Data_push);
+			cola.push_back(D_push);
 			cola.delete(0);
 		end
 		else begin
-			cola.push_back(Data_push);
+			cola.push_back(D_push);
 		end
 	endtask
 	task pop(); // Task para hacer el push en la fifo simulada
@@ -60,7 +60,7 @@ class driver_hijo #(parameter drvrs=4, parameter pckg_sz=16, parameter profundid
 			vif.D_pop[bits-1][Tx] <= 0;
 			vif.rst    <= 1;
 			#2 vif.rst <= 0;
-			fifo_in.Data_push = transaction.Data_push;
+			fifo_in.D_push = transaction.D_push;
 			fifo_in.push();
 			fifo_in.pending();
 
