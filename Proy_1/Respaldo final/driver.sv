@@ -49,7 +49,7 @@ endclass
 
 
 class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
-  fifo_driver #(.pckg_sz(pckg_sz), .bits(bits) .drvrs(drvrs)) fifo_d;
+  fifo_driver #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) fifo_d;
   agent_driver_mailbox  adm; // Se define el manejador adm que apunta al objeto agent_driver_mailbox 
   driver_checker_mailbox dcm; // Manejador que apunta al driver_checker_mailbox
   int HOLD;
