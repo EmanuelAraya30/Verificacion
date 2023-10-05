@@ -1,11 +1,11 @@
 `timescale 1ns/1ps
 `include "Library.sv"
-`include "interface_transactions.sv"
+`include "interface_transaction.sv"
 `include "driver.sv"
 `include "monitor.sv"
 //`include "checker.sv"
 //`include "scoreboard.sv"
-`include "agent_generator.sv"
+`include "agente.sv"
 `include "environment.sv"
 `include "test.sv" 
 
