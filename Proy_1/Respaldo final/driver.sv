@@ -50,8 +50,8 @@ endclass
 
 class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   fifo_driver #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) fifo_d;
-  agent_driver_mailbox  adm; // Se define el manejador adm que apunta al objeto agent_driver_mailbox 
-  driver_checker_mailbox dcm; // Manejador que apunta al driver_checker_mailbox
+  adm agent_driver_mailbox; // Se define el manejador adm que apunta al objeto agent_driver_mailbox 
+  dcm driver_checker_mailbox; // Manejador que apunta al driver_checker_mailbox
   int HOLD;
   int ident;
 
@@ -78,7 +78,7 @@ class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5)
       $display("Driver # [%g] esperando transaccion en tiempo [%g]",ident,$time);
       HOLD = 0;
       @(posedge fifo_d.vif.clk);
-      adm.get(transacciones); //Conecta mailbox al handler que apunta al bus de transacciones
+      agent_driver_mailbox.get(transacciones); //Conecta mailbox al handler que apunta al bus de transacciones
       $display("Driver # [%g] recibe transaccion en tiempo [%g]",ident,$time);
       while(HOLD<transacciones.retardo) begin
         @(posedge fifo_d.vif.clk);
@@ -91,7 +91,7 @@ class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5)
         fifo_d.Din_update(transacciones.dato);//Ingresa el dato dado por la variable DATO en el Trans_bus y lo agrega a la variable de Din_update de la clase fifo_d
         //$display(ident);
         $display("Driver[%g]: transaccion completada en tiempo [%g]",ident,$time);
-        dcm.put(transacciones); //Envia la transaccion al checker desde el bus de transacciones
+        driver_checker_mailbox.put(transacciones); //Envia la transaccion al checker desde el bus de transacciones
       end
     end
   endtask
