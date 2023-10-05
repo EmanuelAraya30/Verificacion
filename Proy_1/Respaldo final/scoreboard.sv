@@ -2,7 +2,7 @@
 // Scoreboard: Este objeto se encarga de llevar un estado del comportamiento de la prueba y es capa de generar reportes //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class score_board #(parameter pckg_sz=16, parameter drvrs=5, parameter pckg_sz=32);
+class score_board #(parameter pckg_sz=16, parameter bits=1, parameter drvrs=5);
 csm trans_chkr_sb_mbx;
 rm trans_rpt_mbx;
 trans_sb #(.pckg_sz(pckg_sz))transacciones_i; 

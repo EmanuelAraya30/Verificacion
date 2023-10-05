@@ -5,7 +5,7 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1);
   driver_padre #(.pckg_sz(pckg_sz),.drvrs(drvrs), .bits(bits)) driver_padre_inst;
   monitor_padre #(.pckg_sz(pckg_sz),.drvrs(drvrs), .bits(bits)) monitor_padre_inst;
   checker #(.pckg_sz(pckg_sz),.drvrs(drvrs), .bits(bits)) checker_inst;
-  scoreboard #(.pckg_sz(pckg_sz),.drvrs(drvrs), .bits(bits)) scoreboard_inst;
+  score_board #(.pckg_sz(pckg_sz),.drvrs(drvrs), .bits(bits)) scoreboard_inst;
   
   virtual bus_if #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) vif;
 
