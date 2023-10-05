@@ -1,7 +1,7 @@
 class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   
-  agent_driver_mailbox  adm[drvrs];
-  test_agent_mailbox tam; 
+  adm agent_driver_mailbox[drvrs];
+  tam test_agent_mailbox; 
   
   instruct tipo; // Genera los diferentes tipos de test (transacciones)
   trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) transacciones;
@@ -19,9 +19,9 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
     $display("El agente se inicializa en el tiempo [%g]", $time);
     forever begin
       #1
-      if (tam.num()>0);begin
+      if (test_agent_mailbox.num()>0);begin
         $display("El agente # %g  recibe una instruccion",$time );
-        tam.get(tipo);
+        test_agent_mailbox.get(tipo);
         case(tipo)
           trans_aleat:begin //secuencia aleatoria de transacciones
             for(int i=0; i<num_trans_ag; i++)begin
@@ -30,7 +30,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.tipo=tipo;
               transacciones.randomize();
               transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              adm[transacciones.Tx].put(transacciones);
+              agent_driver_mailbox[transacciones.Tx].put(transacciones);
             end		
 		  end
           
@@ -43,7 +43,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.Tx={8{1'b1}};
               transacciones.Rx = 0;
               transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              adm[transacciones.Rx].put(transacciones);
+              agent_driver_mailbox[transacciones.Rx].put(transacciones);
             end
           end
           
@@ -60,7 +60,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               	transacciones.Tx = j;
               	transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
               	transacciones.print("Agente: transaccion:");
-              	adm[transacciones.Rx].put(transacciones);
+              	agent_driver_mailbox[transacciones.Rx].put(transacciones);
               end
             end
           end
@@ -73,7 +73,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.dato=retard_ag;
               transacciones.retardo =1;
               transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              adm[transacciones.Tx].try_put(transacciones);
+              agent_driver_mailbox[transacciones.Tx].try_put(transacciones);
             end
           end
           
@@ -87,7 +87,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.Rx= Rx_ag;
               transacciones.Tx= Tx_ag;
               transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              adm[transacciones.Tx].try_put(transacciones);
+              agent_driver_mailbox[transacciones.Tx].try_put(transacciones);
             end
           end
         endcase
