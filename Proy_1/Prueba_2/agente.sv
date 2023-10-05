@@ -1,7 +1,7 @@
 // Implementacion del agente y el generador
 
 class agent #(parameter pckg_sz=16, parameter profundidad=8);
-	trans_bus_mbx agnt_drvr_mbx;      //Mailbox del agente al driver
+	trans_bus_mbx agnt_drv_mbx;      //Mailbox del agente al driver
 	tst_agnt_mbx test_agent_mbx;     //Mailbox del test al agente
 	//trans_bus_mbx agnt_chk_mbx;      //Mailbox del agente al checker
 	int num_transacciones;
