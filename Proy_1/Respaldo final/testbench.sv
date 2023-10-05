@@ -2,7 +2,7 @@
 
 `ifndef PRMT
 	parameter pckg_sz = 32;
-    	parameter drvrs = 16;
+  	parameter drvrs = 16;
 `endif
 
 
@@ -18,7 +18,7 @@
 
 
 module tb;
-	
+
     parameter bits=1;
   	parameter broadcast= {8{1'b1}};
 
