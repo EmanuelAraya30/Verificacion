@@ -4,7 +4,7 @@
 class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) transaccion; //transacción recibida en el mailbox 
   trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) emul_queue[drvrs][$]; //this queue is going to be used as golden reference for the fifo
-  trans_monitor #(parameter pckg_sz = 32) mntr_trans;
+  trans_monitor #(.pckg_sz(pckg_sz)) mntr_trans;
   trans_sb   #(.pckg_sz(pckg_sz)) to_sb; // transacción usada para enviar al checker desde el monitor
 
   //Llamado de mailboxes
