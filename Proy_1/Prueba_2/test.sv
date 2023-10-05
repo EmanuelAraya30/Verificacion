@@ -41,9 +41,9 @@ task run;
 	join_none
 	
 	// 1) Aleatorios
-	//instr_agent = aleatorios;
-	//test_agent_mbx.put(instr_agent);
-	//$display("[%g] Test: Instruccion aleatorios enviada, num_transacciones %g",$time,num_transacciones);
+	instruccion_agente = aleatorios;
+	test_agent_mbx.put(instruccion_agente);
+	$display("[%g] Test: Instruccion aleatorios enviada, num_transacciones %g",$time,num_transacciones);
 	
 	// 2) Genericos
 	instruccion_agente = genericos;

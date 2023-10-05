@@ -5,7 +5,7 @@ class agent #(parameter pckg_sz=16, parameter profundidad=8);
 	tst_agnt_mbx test_agent_mbx;     //Mailbox del test al agente
 	//trans_bus_mbx agnt_chk_mbx;      //Mailbox del agente al checker
 	int num_transacciones;
-	//int max_retardo;
+	int max_retardo;
 	tipo_trans instruccion;
 	bit [pckg_sz-1:0] dto_spec;
 	//instrucciones_agente instruccion;
@@ -23,16 +23,16 @@ task run;
 		$display("Numero de transacciones %g",num_transacciones);
 		test_agent_mbx.get(instruccion);
 		case(instruccion)
-		//aleatorios:begin
-		//	for (int i=0;i<num_transacciones;i++) begin //
-		//	        $display("[%g] Agente-Generador: se ha escogido la prueba aleatoria", $time);
-		//	        transaccion.new;
-		//	        transaccion.max_retardo=max_retardo; // Aleatorizacion de 0 a 20 ciclos de clk
-				// transaccion.randomize();
-				// transaccion.print("Agente-Generador: Transaccion creada");
-				// agnt_drv_mbx.put(transaccion);
-		//        end	
-		//end
+		aleatorios:begin
+			for (int i=0;i<num_transacciones;i++) begin //
+			    $display("[%g] Agente-Generador: se ha escogido la prueba aleatoria", $time);
+			    transaccion.new;
+			    transaccion.max_retardo=max_retardo; // Aleatorizacion de 0 a 20 ciclos de clk
+				transaccion.randomize();
+				transaccion.print("Agente-Generador: Transaccion creada");
+				agnt_drv_mbx.put(transaccion);
+	        end	
+		end
 		genericos:begin
 			for (int i=0;i<num_transacciones;i++) begin
 				$display("[%g] Agente-Generador: prueba de envio de paquetes genéricos", $time);
