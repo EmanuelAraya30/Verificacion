@@ -16,12 +16,12 @@ task run;
 	$display("Se inicializa el agente-generador en tiempo [%g] ",$time);
 	begin
 	#1
-	cantidad = tst_agnt_mbx.num();
+	cantidad = test_agent_mbx.num();
 	$display("Numero de pruebas %g",cantidad);	
-	if(tst_agnt_mbx.num() > 0)begin
+	if(test_agent_mbx.num() > 0)begin
 		$display("[%g] Agente-Generador: se recibe instruccion", $time);
 		$display("Numero de transacciones %g",num_transacciones);
-		tst_agnt_mbx.get(instruccion);
+		test_agent_mbx.get(instruccion);
 		case(instruccion)
 		//aleatorios:begin
 		//	for (int i=0;i<num_transacciones;i++) begin //
