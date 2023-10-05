@@ -48,7 +48,7 @@ task run;
 				//transaccion.mensajes=num_transacciones;
 				transaccion.D_push={transaccion.Rx,transaccion.dato}; //Uno el dato del destino con el mensaje a enviar 
 				transaccion.print("Agente-Generador: Transaccion creada y enviada al Driver-Monitor");
-				agnt_drvr_mbx.put(transaccion);
+				agnt_drv_mbx.put(transaccion);
 				transaccion.print("Agente-Generador: Transaccion creada y enviada al Checker");
 			end
 		end
