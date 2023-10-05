@@ -1,6 +1,6 @@
 class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   
-  agent_driver_mailbox  adm [drvrs];
+  agent_driver_mailbox  adm[drvrs];
   test_agent_mailbox tam; 
   
   instruct tipo; // Genera los diferentes tipos de test (transacciones)
