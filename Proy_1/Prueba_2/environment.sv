@@ -1,5 +1,5 @@
 
-class environment #(parameter pckg_sz=16, parameter profundidad=8, parameter drvrs=16, parameter bits=1); // Parametros se definen en el test
+class ambiente #(parameter pckg_sz=16, parameter profundidad=8, parameter drvrs=16, parameter bits=1); // Parametros se definen en el test
 	// Declaracion de los componentes (dispotivos, bloques) del ambiente
 	driver #(.pckg_sz(pckg_sz), .profundidad(profundidad), .drvrs(drvrs), .bits(bits)) driver_inst;
 	monitor #(.pckg_sz(pckg_sz), .profundidad(profundidad), .drvrs(drvrs), .bits(bits)) monitor_inst;
