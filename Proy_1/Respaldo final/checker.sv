@@ -8,9 +8,9 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   trans_sb   #(.pckg_sz(pckg_sz)) to_sb; // transacción usada para enviar al checker desde el monitor
 
   //Llamado de mailboxes
-  trans_drv_chk_mbx drv_chk_mbx; 
-  trans_mntr_chkr_mbx mntr_chkr_mbx; // Este mailbox es el que comunica con el monitor con el checker
-  trans_chkr_sb_mbx  chkr_sb_mbx; // Este mailbox es el que comunica el checker con el scoreboard
+  dcm drv_chk_mbx; 
+  mcm mntr_chkr_mbx; // Este mailbox es el que comunica con el monitor con el checker
+  csm  chkr_sb_mbx; // Este mailbox es el que comunica el checker con el scoreboard
 
   //Se generan Queues para almacenar datos
   function new();
