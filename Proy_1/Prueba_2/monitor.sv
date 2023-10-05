@@ -28,7 +28,7 @@ class monitor_hijo #(parameter pckg_sz=16, parameter drvrs=4, parameter profundi
             $display("Dato = %b",dato_push);
             $display("--------------------------------------------------------------");
             $display("[%g] Monitor_hijo: Dispositivo %g listo para recibir",$time,Tx);
-            fifo_o.Data_push=vif.D_push[bits-1][Tx];
+            fifo_o.D_push=vif.D_push[bits-1][Tx];
             fifo_o.push();
             fifo_o.pending();
             fifo_o.pop();

@@ -83,7 +83,7 @@ endclass
 class driver #(parameter pckg_sz=16, parameter profundidad=8, parameter drvrs=4, parameter bits=1); 
 	virtual bus_if #(.drvrs(drvrs), .pckg_sz(pckg_sz), .bits(bits)) vif;	
 	driver_hijo #(.drvrs(drvrs),.pckg_sz(pckg_sz),.profundidad(profundidad),.bits(bits)) d_hijo_inst[drvrs-1:0];
-	trans_bus_mbx agnt_drvr_mbx; // Mailbox del agente al driver de tipo trans_bus
+	trans_bus_mbx agnt_drv_mbx; // Mailbox del agente al driver de tipo trans_bus
 	int espera;
 
 	function new;
@@ -103,7 +103,7 @@ task run();
 	for (int i=0; i<drvrs; i++)begin
       		automatic int k=i;
 		d_hijo_inst[k].vif = vif;
-		d_hijo_inst[k].driver_h_mbx = agnt_drvr_mbx;
+		d_hijo_inst[k].driver_h_mbx = agnt_drv_mbx;
 		d_hijo_inst[k].Tx = k;
 		d_hijo_inst[k].run();	
 	end		
