@@ -112,7 +112,7 @@ class monitor_padre #(parameter bits = 1,
     endfunction
 
     task run();
-        for(int i = 0; i < drvrs, i++)begin
+        for(int i = 0; i < drvrs; i++)begin
             fork
                 automatic int j = i;
                 begin
