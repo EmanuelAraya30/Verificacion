@@ -19,7 +19,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
   test_agent_mailbox = new();
   reporte_mailbox =new();
     ambiente_inst = new();
-    ambiente_inst.agent_inst.num_trans_agent = num_trans_ag;
+    ambiente_inst.agent_inst.num_trans_ag = num_trans_ag;
     ambiente_inst.agent_inst.max_retardo_ag= max_retardo_ag;
     ambiente_inst.agent_inst.test_agent_mailbox=test_agent_mailbox;
     ambiente_inst.scoreboard_inst.reporte_mailbox =reporte_mailbox;
@@ -85,7 +85,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     ambiente_inst.scoreboard_inst.tiempo_init=0;
     ambiente_inst.scoreboard_inst.tiempo_fin=0;
 	
-	ambiente_inst.agent_inst.num_trans_agent=100;    	
+	ambiente_inst.agent_inst.num_trans_ag=100;    	
     tipo=trans_spec;
     ambiente_inst.agent_inst.retard_ag=1;
     ambiente_inst.agent_inst.info_ag=0;

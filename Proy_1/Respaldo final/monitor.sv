@@ -70,7 +70,7 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz 
         this.FiFo_out = new(ID);
     endfunction
 
-    task run();
+    task inicia();
         $display("[%g]  El Monitor [%g] inicializado", $time, id);
         fork
             FiFo_out.PUSH();
@@ -111,12 +111,12 @@ class monitor_padre #(parameter bits = 1,
         end
     endfunction
 
-    task run();
+    task inicia();
         for(int i = 0; i < drvrs; i++)begin
             fork
                 automatic int j = i;
                 begin
-                    FiFo_son[j].run();
+                    FiFo_son[j].inicia();
                 end
             join_none
         end 
