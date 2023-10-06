@@ -51,7 +51,7 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1, para
 	
 	//Se efectua la conexión de los mailbox
 	for(int j=0; j<drvrs; j++)begin
-        monitor_padre_inst.FiFo_son[j].monitor_checker_mailbox  = monitor_checker_mailbox;
+        monitor_padre_inst.monitor_son[j].monitor_checker_mailbox  = monitor_checker_mailbox;
         driver_padre_inst.driver_h[j].agent_driver_mailbox  = agent_driver_mailbox[j];
         driver_padre_inst.driver_h[j].driver_checker_mailbox  = driver_checker_mailbox;
         agent_inst.agent_driver_mailbox[j]                  = agent_driver_mailbox[j];
@@ -70,7 +70,7 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1, para
   virtual task inicia();
     $display("[%g] El ambiente fue inicializado", $time);
 	for(int j=0; j<drvrs; j++)begin
-          monitor_padre_inst.FiFo_son[j].FiFo_out.vif=vif;
+          monitor_padre_inst.monitor_son[j].FiFo_out.vif=vif;
           driver_padre_inst.driver_h[j].fifo_d.vif=vif;
 	end
 	
