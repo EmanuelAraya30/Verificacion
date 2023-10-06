@@ -139,7 +139,7 @@ class trans_sb #(parameter pckg_sz=32);
   
   // Método se utiliza para imprimir información sobre la transacción
   function print (string tag);
-    $display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g, Num_trans=%g",  
+    $display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g",  
              $time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec);
   endfunction
 endclass

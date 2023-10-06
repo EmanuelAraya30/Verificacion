@@ -47,7 +47,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   task inicia();
     $display("El agente se inicializa en el tiempo [%g]", $time);
     aleatorio.randomize();
-    trans_aleat=aleatorio.aleat;
+    
     
     forever begin
       #1
@@ -123,7 +123,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
             end
           end
           num_trans_aleat:begin
-            for(int i=0; i<trans_aleat; i++)begin
+            for(int i=0; i<aleatorio.aleat; i++)begin
               transacciones = new(); //Inicializa la clase Trans_Bus
               transacciones.max_retardo= max_retardo_ag; //Accede a la propiedad 'max_retardo' de Trans_Bus y le asigna un valor de retardo
               transacciones.tipo=tipo;  //Asigna a la propiedad 'tipo' de Trans_Bus el tipo de instruccion segun el typedef tipo
