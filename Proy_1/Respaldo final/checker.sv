@@ -24,7 +24,7 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
     forever begin
       driver_checker_mailbox.get(transaccion);
       $display("[%g]  Checker: Se recibe trasacción desde el driver/Agente",$time);
-      emul_queue[transaccion.Rx].push_back(transaccion);    
+      emul_queue[transaccion.dato_rec].push_back(transaccion);    
     end 
   endtask
 

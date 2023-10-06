@@ -8,7 +8,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   
   int num_trans_ag; //numero de transacciones
   int max_retardo_ag; 
-  int retard_ag;
+  int retardo_ag;
   int max_terminales_ag;
   bit [pckg_sz-13:0] info_ag;
   bit [3:0] Tx_ag;
@@ -68,9 +68,9 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
           trans_retarmin:begin //Transacciones especificas
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
-              transacciones.retardo=retard_ag;
+              transacciones.retardo=retardo_ag;
               transacciones.tipo=tipo;
-              transacciones.dato=retard_ag;
+              transacciones.dato=retardo_ag;
               transacciones.retardo =1;
               transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion};
               agent_driver_mailbox[transacciones.dato_env].try_put(transacciones);
@@ -81,7 +81,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
           trans_spec:begin //Transacciones especificas
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
-              transacciones.retardo=retard_ag;
+              transacciones.retardo=retardo_ag;
               transacciones.tipo=tipo;
               transacciones.dato= info_ag;
               transacciones.dato_rec= Rx_ag;

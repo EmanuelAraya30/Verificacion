@@ -61,7 +61,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     ambiente_inst.agent_inst.Rx_ag = 2;
     ambiente_inst.test_agent_mailbox.put(tipo);
 	
-	$display("[%g] Transacciones especificas creadas con n_transacciones=%g",$time,n_transacciones);
+	$display("[%g] Transacciones especificas creadas con n_transacciones=%g",$time,num_trans_ag);
     #2000000;
 	
 	//Se encuentra el ancho de banda de transmision // Cambiar de acá para abajo
@@ -76,8 +76,8 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     tipo=trans_aleat;
     test_agent_mailbox.put(tipo);
     #2000000;
-      
-    reporte_inst=reporte_bwmax;
+  
+    reporte_inst=rpt_bw_max;
     reporte_mailbox.put(reporte_inst);
     #100;
     ambiente_inst.scoreboard_inst.inicio=1;
@@ -94,11 +94,11 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     test_agent_mailbox.put(tipo);
     #2000000;
       
-    reporte_inst=reporte_bwmin;
+    reporte_inst=rpt_bw_min;
     reporte_mailbox.put(reporte_inst);
-    reporte_inst=reporte_promedio;
+    reporte_inst=rpt_prom;
     reporte_mailbox.put(reporte_inst);
-    reporte_inst=reporte_transacciones;
+    reporte_inst=rpt_transac;
     reporte_mailbox.put(reporte_inst);
 	#100;
       	
