@@ -55,11 +55,11 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     
     
     tipo = trans_spec;
-    agent_inst.retardo_ag = 7;
-    agent_inst.info_ag = 255;
-    agent_inst.Tx_ag = drvrs-1;
-    agent_inst.Rx_ag = 2;
-    test_agent_mailbox.put(tipo);
+    ambiente_inst.agent_inst.retardo_ag = 7;
+    ambiente_inst.agent_inst.info_ag = 255;
+    ambiente_inst.agent_inst.Tx_ag = drvrs-1;
+    ambiente_inst.agent_inst.Rx_ag = 2;
+    ambiente_inst.test_agent_mailbox.put(tipo);
 	
 	$display("[%g] Transacciones especificas creadas con n_transacciones=%g",$time,n_transacciones);
     #2000000;
@@ -86,7 +86,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     ambiente_inst.scoreboard_inst.tiempo_fin=0;
 	
 	ambiente_inst.agent_inst.num_trans_ag=100;    	
-    tipo=trans_spec;
+    tipo= trans_spec;
     ambiente_inst.agent_inst.retard_ag=1;
     ambiente_inst.agent_inst.info_ag=0;
     ambiente_inst.agent_inst.Rx_ag=0;
