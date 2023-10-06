@@ -3,12 +3,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class score_board #(parameter pckg_sz=16, parameter bits=1, parameter drvrs=5);
-csm trans_chkr_sb_mbx;
-rm trans_rpt_mbx;
+csm checker_scoreboard_mailbox;
+rm reporte_mailbox;
 trans_sb #(.pckg_sz(pckg_sz))transacciones_i; 
 trans_sb #(.pckg_sz(pckg_sz))scoreboard[$]; // esta es la estructura dinámica que maneja el scoreboard  
 trans_sb #(.pckg_sz(pckg_sz)) auxiliar_trans;
 reporte reporte_inst;
+
 //Definición de variables
 int ret_drvrs[drvrs]; //Retardo x driver
 int cont_intruct_term[drvrs]; //contador de instrucciones x terminal
