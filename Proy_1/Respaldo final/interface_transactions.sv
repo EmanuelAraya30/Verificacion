@@ -13,8 +13,8 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   rand bit [pckg_sz-13:0] informacion; //20 bits de informacion
   rand int retardo; // tiempo de retardo en ciclos de reloj que se debe esperar antes de ejecutar la transacción
   int tiempo; //Representa el tiempo  de la simulación de envio
-  rand bit [3:0] Tx;
-  rand bit [7:0] Rx;
+  rand bit [3:0] dato_env;
+  rand bit [7:0] dato_rec;
   int max_retardo;
   instruct tipo; // lectura, escritura, broadcast, reset;
   bit[pckg_sz-1:0] dato; // este es el dato de la transacción 
@@ -61,8 +61,8 @@ endclass
 ////////////////////////////////////////////////////
 
 class trans_sb #(parameter pckg_sz=16);
-  bit [pckg_sz-1:0] dato_env;
-  bit [pckg_sz-1:0] dato_rec;
+  bit [pckg_sz-1:0] dato_env; //Tx
+  bit [pckg_sz-1:0] dato_rec; //Rx
   int tiempo_env;
   int tiempo_rec;
   int laten;

@@ -8,9 +8,9 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   trans_sb   #(.pckg_sz(pckg_sz)) to_sb; // transacción usada para enviar al checker desde el monitor
 
   //Llamado de mailboxes
-  dcm drv_chk_mbx; 
-  mcm mntr_chkr_mbx; // Este mailbox es el que comunica con el monitor con el checker
-  csm  chkr_sb_mbx; // Este mailbox es el que comunica el checker con el scoreboard
+  dcm driver_checker_mailbox; 
+  mcm monitor_checker_mailbox; // Este mailbox es el que comunica con el monitor con el checker
+  csm checker_scoreboard_mailbox; // Este mailbox es el que comunica el checker con el scoreboard
 
   //Se generan Queues para almacenar datos
   function new();
@@ -22,7 +22,7 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   task save;
     $display("[%g]  El checker fue inicializado",$time);
     forever begin
-      drv_chk_mbx.get(transaccion);
+      driver_checker_mailbox.get(transaccion);
       $display("[%g]  Checker: Se recibe trasacción desde el driver/Agente",$time);
       emul_queue[transaccion.Rx].push_back(transaccion);    
     end 
@@ -31,7 +31,7 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   task match; //Compara los datos enviados contra los recibidos
     forever begin
       to_sb = new();
-      mntr_chkr_mbx.get(mntr_trans);
+      monitor_checker_mailbox.get(mntr_trans);
       $display("[%g]  Checker: Se recibe trasacción desde el monitor",$time);
       for(int i=0; i<emul_queue[mntr_trans.Rx_mnt].size(); i++)begin //Recorre cada posicion
         if(emul_queue[emul_queue.Rx_mnt][i].dato==mntr_trans.dato)begin //compara
@@ -41,10 +41,10 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
           to_sb.tiempo_rec=mntr_trans.tiempo;
           to_sb.calc_laten();
           to_sb.tipo=emul_queue[mntr_trans.Rx_mnt][i].tipo;
-          to_sb.dato_env=emul_queue[mntr_trans.Rx_mnt][i].dato_env;
+          to_sb.dato_env=emul_queue[mntr_trans.Rx_mnt][i].;
           to_sb.dev_rec=mntr_trans.Rx_mnt;
           to_sb.print("Checker: Transacción completa");
-          chkr_sb_mbx.put(to_sb);//envia la transaccion al scoreboard
+          checker_scoreboard_mailbox.put(to_sb);//envia la transaccion al scoreboard
           i=emul_queue[mntr_trans.Rx_mnt].size();  	
         end
         

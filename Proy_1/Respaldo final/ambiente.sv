@@ -53,14 +53,14 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1);
     checker_inst.monitor_checker_mailbox           =monitor_checker_mailbox;
     checker_inst.checker_scoreboard_mailbox           =checker_scoreboard_mailbox;
     scoreboard_inst.checker_scoreboard_mailbox        =checker_scoreboard_mailbox;
-	agent_inst.test_agent_mailbox             =test_agent_mailbox;
+	  agent_inst.test_agent_mailbox             =test_agent_mailbox;
   endfunction
   
   virtual task inicia();
     $display("[%g] El ambiente fue inicializado", $time);
 	for(int j=0; j<drvrs; j++)begin
-          monitor_inst.FiFo_son[j].FiFo_out.vif=vif;
-          driver_inst.driver_h[j].fifo_d.vif=vif;
+          monitor_padre_inst.FiFo_son[j].FiFo_out.vif=vif;
+          driver_padre_inst.driver_h[j].fifo_d.vif=vif;
 	end
 	
 	

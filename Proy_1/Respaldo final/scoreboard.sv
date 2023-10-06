@@ -33,8 +33,8 @@ task run;
   $display("[%g] El Score Board fue inicializado",$time);
   forever begin
     #5
-    if(trans_chkr_sb_mbx.num()>0)begin
-      trans_chkr_sb_mbx.get(transacciones_i);
+    if(checker_scoreboard_mailbox.num()>0)begin
+      checker_scoreboard_mailbox.get(transacciones_i);
       transacciones_i.print("Score Board: transacción recibida desde el checker");
       retardo_total = retardo_total + transacciones_i.laten;
       ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.laten;  
@@ -50,8 +50,8 @@ task run;
       scoreboard.push_back(transacciones_i);
     end 
     else begin
-      if(trans_rpt_mbx.num()>0)begin
-        trans_rpt_mbx.get(reporte_inst);
+      if(reporte_mailbox.num()>0)begin
+        reporte_mailbox.get(reporte_inst);
         case(reporte_inst)
         rpt_prom: begin
             $display("[%g]Score Board: Recibida Orden Retardo Promedio", $time);
