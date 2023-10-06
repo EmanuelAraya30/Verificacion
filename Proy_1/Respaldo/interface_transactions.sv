@@ -16,7 +16,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //Crea nuevo tipo de dato para intrucciones con nombres especifico, para intrucciones y reporte
-typedef enum {trans_aleat, broadcast, trans_each, trans_retarmin, trans_spec} instruct; 
+typedef enum {trans_aleat, broadcast, trans_each, trans_retarmin, trans_spec, num_trans_aleat} instruct; 
 typedef enum {rpt_prom, rpt_bw_max, rpt_bw_min, rpt_transac} reporte; 
 
 
@@ -33,6 +33,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   int max_retardo; // Limite de retardo
   instruct tipo; // Tipo de prueba a realizar
   bit[pckg_sz-1:0] dato; // Este corresponde al paquete/transacción que se envia
+  
   
   // Constraint
   constraint const_retardo {retardo <= max_retardo; retardo>0;} // Limita el retardo para que sea controlado
@@ -116,6 +117,8 @@ class trans_sb #(parameter pckg_sz=32);
   int dev_env; // Dispositivo de donde se envia
   int dev_rec; // Dispositivo que recibe
 
+  agent #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz)) agent_inst_inter;
+
   // Método para limpiar la transacción
   function clean();
     this.dato_env = 0;
@@ -126,6 +129,7 @@ class trans_sb #(parameter pckg_sz=32);
     this.tipo = trans_aleat;
     this.dev_env = 0;
     this.dev_rec = 0;
+    this.agent_inst_inter.num_trans_ag=0;
   endfunction
 
   // Calcula latencia en base a los tiempos
@@ -135,8 +139,8 @@ class trans_sb #(parameter pckg_sz=32);
   
   // Método se utiliza para imprimir información sobre la transacción
   function print (string tag);
-    $display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g", 
-             $time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec);
+    $display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g, Num_trans=%g",  
+             $time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec, this.agent_inst_inter.num_trans_ag);
   endfunction
 endclass
 
