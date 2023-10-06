@@ -85,7 +85,7 @@ class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5)
         HOLD=HOLD +1;
       end
       
-      if(transacciones.Tx ==ident)begin
+      if(transacciones.dato_env ==ident)begin
         transacciones.tiempo = $time;
         @(posedge fifo_d.vif.clk);
         fifo_d.Din_update(transacciones.dato);//Ingresa el dato dado por la variable DATO en el Trans_bus y lo agrega a la variable de Din_update de la clase fifo_d
