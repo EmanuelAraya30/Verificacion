@@ -7,7 +7,13 @@
 // Curso: EL-5511 Verificación funcional de circuitos integrados
 // Este Script esta estructurado en System Verilog
 // Propósito General: Diseño de pruebas en capas para un BUS de datos
-// Modulo: Este objeto es responsable de majear las señales de entradas del DUT. 
+// Modulo: Este objeto es responsable de majear las señales de entradas del DUT.
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ // fifo_driver: es responsanble de actualizar el valor de pending y el valor de entrada a la fifo////////////
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 class fifo_driver #(parameter pckg_sz = 32, parameter bits = 1, parameter drvrs=5);
   bit push; 
@@ -57,6 +63,9 @@ class fifo_driver #(parameter pckg_sz = 32, parameter bits = 1, parameter drvrs=
 endclass
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ //driver_hijo: se encarga de actualizar los procesos de pending y entrada de datos al bus de datos////////////
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
   fifo_driver #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) fifo_d;
@@ -107,6 +116,10 @@ class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5)
   endtask
 endclass
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ //driver_padre: genera las instancias para los drivers hijos/////////////////////////////////////////////////                                     
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 class driver_padre #(parameter pckg_sz =32, parameter drvrs =5, parameter bits=1);
   driver_hijo #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) driver_h [drvrs]; //Instancia de driver_hijo para generar los 5 procesos hijos
@@ -119,7 +132,7 @@ class driver_padre #(parameter pckg_sz =32, parameter drvrs =5, parameter bits=1
   task inicia();
     for (int i=0; i< drvrs; i++)begin
       fork
-        automatic int j=i;
+        automatic int j=i; //Almacena el valor de la variable i en un stack para hacer las diferentes instancias de driver_h 
         begin
           driver_h[j].inicia(); // Se ejecuta un ciclo for y un proceso fork join none para que cada hijo generado se ejecute en paralelo
         end
