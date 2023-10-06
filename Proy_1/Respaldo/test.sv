@@ -19,8 +19,8 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
   tam test_agent_mailbox;
   rm reporte_mailbox;
   
-  parameter num_trans_ag = 5;
-  parameter max_retardo_ag = 30;
+  parameter num_trans_ag = 1;
+  parameter max_retardo_ag = 3;
   
   instruct tipo;
   reporte  reporte_inst;
