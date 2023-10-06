@@ -29,8 +29,8 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.max_retardo= max_retardo_ag;
               transacciones.tipo=tipo;
               transacciones.randomize();
-              transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              agent_driver_mailbox[transacciones.Tx].put(transacciones);
+              transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion};
+              agent_driver_mailbox[transacciones.dato_env].put(transacciones);
             end		
 		  end
           
@@ -40,10 +40,10 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.max_retardo= max_retardo_ag;
               transacciones.tipo=tipo;
               transacciones.randomize();
-              transacciones.Tx={8{1'b1}};
-              transacciones.Rx = 0;
-              transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              agent_driver_mailbox[transacciones.Rx].put(transacciones);
+              transacciones.dato_env={8{1'b1}};
+              transacciones.dato_rec = 0;
+              transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion};
+              agent_driver_mailbox[transacciones.dato_rec].put(transacciones);
             end
           end
           
@@ -56,11 +56,11 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               	transacciones.max_retardo=max_retardo_ag;
               	transacciones.tipo=tipo;
               	transacciones.randomize();
-              	transacciones.Rx = i;
-              	transacciones.Tx = j;
-              	transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
+              	transacciones.dato_rec = i;
+              	transacciones.dato_env = j;
+              	transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion};
               	transacciones.print("Agente: transaccion:");
-              	agent_driver_mailbox[transacciones.Rx].put(transacciones);
+              	agent_driver_mailbox[transacciones.dato_rec].put(transacciones);
               end
             end
           end
@@ -72,8 +72,8 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.tipo=tipo;
               transacciones.dato=retard_ag;
               transacciones.retardo =1;
-              transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              agent_driver_mailbox[transacciones.Tx].try_put(transacciones);
+              transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion};
+              agent_driver_mailbox[transacciones.dato_env].try_put(transacciones);
             end
           end
           
@@ -84,10 +84,10 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.retardo=retard_ag;
               transacciones.tipo=tipo;
               transacciones.dato= info_ag;
-              transacciones.Rx= Rx_ag;
-              transacciones.Tx= Tx_ag;
-              transacciones.dato={transacciones.Rx, transacciones.Tx, transacciones.informacion};
-              agent_driver_mailbox[transacciones.Tx].try_put(transacciones);
+              transacciones.dato_rec= Rx_ag;
+              transacciones.dato_env= Tx_ag;
+              transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion};
+              agent_driver_mailbox[transacciones.dato_env].try_put(transacciones);
             end
           end
         endcase

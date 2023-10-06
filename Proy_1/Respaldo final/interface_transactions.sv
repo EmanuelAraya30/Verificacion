@@ -25,8 +25,8 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
  
   //constraint
   constraint const_retardo {retardo <= max_retardo; retardo>0;}
-  constraint const_Rx {Rx < drvrs; Rx >= 0; Rx != Tx;}
-  constraint const_Tx {Tx < drvrs; Tx >= 0;}
+  constraint const_dato_rec {dato_rec < drvrs; dato_rec >= 0; dato_rec != dato_env;}
+  constraint const_dato_env {dato_env < drvrs; dato_env >= 0;}
 
   function new(bit [pckg_sz-19:0] info=0, int ret =0,bit[pckg_sz-1:0] dto=0,int tmp = 0, instruct tpo = trans_aleat, int mx_rtrd = 20, bit [3:0] tx = 0, bit [7:0] rx = 0);
     this.retardo = ret;
@@ -34,14 +34,14 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
     this.tiempo = tmp;
     this.tipo = tpo;
     this.max_retardo = mx_rtrd;
-    this.Tx = tx;
-    this.Rx = rx;
+    this.dato_env = tx;
+    this.dato_rec = rx;
     this.informacion = info;
   endfunction
   
     
   function void print(string tag = "");
-    $display("[%g] %s Tiempo de envio=%g Tipo=%s Retardo=%g Transmisor=0x%h dato=0x%h Receptor=0x%h",$time,tag,this.tipo,this.retardo,this.Tx,this.dato,this.Rx);
+    $display("[%g] %s Tiempo de envio=%g Tipo=%s Retardo=%g Transmisor=0x%h dato=0x%h Receptor=0x%h",$time,tag,this.tipo,this.retardo,this.dato_env,this.dato,this.dato_rec);
   endfunction
 
 endclass
@@ -61,8 +61,8 @@ endclass
 ////////////////////////////////////////////////////
 
 class trans_sb #(parameter pckg_sz=16);
-  bit [pckg_sz-1:0] dato_env; //Tx
-  bit [pckg_sz-1:0] dato_rec; //Rx
+  bit [pckg_sz-1:0] dato_env; 
+  bit [pckg_sz-1:0] dato_rec; 
   int tiempo_env;
   int tiempo_rec;
   int laten;
@@ -106,18 +106,18 @@ endclass
 class trans_monitor #(parameter pckg_sz = 32);
   bit[pckg_sz-1:0] dato; // este es el dato de la transacción
   int tiempo; //Representa el tiempo  de la simulación en el que se ejecutó la transacción 
-  bit [7:0] Rx_mnt;
+  bit [7:0] dato_rec_mnt;
 
   function new(bit[pckg_sz-1:0] dto=0,int tmp = 0, int rx_mnt= 0);
     this.dato = dto;
     this.tiempo = tmp;
-    this.Rx_mnt = rx_mnt;
+    this.dato_rec_mnt = rx_mnt;
   endfunction
   
 
     
   function void print(string tag = "");
-    $display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,this.dato,this.tiempo,this.Rx_mnt);
+    $display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
   endfunction
 
 endclass
