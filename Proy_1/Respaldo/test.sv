@@ -45,29 +45,29 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     join_none
     
     
-    tipo = trans_aleat; //cantidad de transacciones
+    tipo = trans_aleat; // Prueba de transacciones aleatorias
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion aleatorizando numero de dispositivos", $time,num_trans_ag);
+    $display("Se efectua transaccion aleatoria en tiempo %g con %g transacciones", $time,num_trans_ag);
     
-    tipo = broadcast; //Cantidad de dispositivos
+    tipo = broadcast; // Prueba de broadcast
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion aleatorizando numero de dispositivos", $time,num_trans_ag);
+    $display("Se efectua transaccion de broadcast en tiempo %g con %g transacciones", $time,num_trans_ag);
     
     tipo = trans_each; // Prueba de reset
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion con prueba de reset=%g", $time,num_trans_ag);
+    $display("Se efectuan transacciones en todas las terminales en tiempo %g con %g transacciones", $time,num_trans_ag);
     
     tipo = trans_retarmin; // Retardo aleatorio 
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion con retardo aleatorio=%g", $time,num_trans_ag);
+    $display("Se efectuan transacciones de retardo aleatorio en tiempo %g con %g transacciones", $time,num_trans_ag);
     
     tipo = trans_spec; // Direcciones de ID inválidas 
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transacciones con direcciones de envio invalidas=%g", $time,num_trans_ag);
+    $display("Se efectuan transacciones con direcciones de ID en tiempo %g con %g transacciones", $time,num_trans_ag);
     
-    tipo = num_trans_aleat; // Direcciones de ID inválidas 
+    tipo = num_trans_aleat; // Numero aleatorio de transacciones 
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transacciones con direcciones de envio invalidas=%g", $time,num_trans_ag);
+    $display("Se efectuan numero aleatorio de transacciones en tiempo %g con %g transacciones", $time,num_trans_ag);
 
     
     tipo = trans_spec;
