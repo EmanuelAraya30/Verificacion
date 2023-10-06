@@ -1,6 +1,15 @@
- ///////////////////////////////////////////////////////////////////////////////
- // Monitor: este objeto es responsable de leer las señales de salida del DUT //
- ///////////////////////////////////////////////////////////////////////////////
+// Monitor
+// Instituto Tecnologico de Costa Rica (www.tec.ac.cr)
+// Escuela de Ingeniería Electrónica
+// Prof: Ing. Ronny Garcia Ramirez. (rgarcia@tec.ac.cr)
+// Estudiantes: -Enmanuel Araya Esquivel. (emanuelarayaesq@gmail.com)
+//              -Randall Vargas Chaves. (randallv07@gmail.com)
+// Curso: EL-5511 Verificación funcional de circuitos integrados
+// Este Script esta estructurado en System Verilog
+// Propósito General: Diseño de pruebas en capas para un BUS de datos
+// Modulo: Este objeto es responsable de leer las señales de salida del DUT.
+
+
 
 class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz = 32, parameter broadcast = {8{1'b1}});
     virtual bus_if #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz), .broadcast(broadcast))vif;

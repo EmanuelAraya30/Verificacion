@@ -1,3 +1,16 @@
+// Test
+// Instituto Tecnologico de Costa Rica (www.tec.ac.cr)
+// Escuela de Ingeniería Electrónica
+// Prof: Ing. Ronny Garcia Ramirez. (rgarcia@tec.ac.cr)
+// Estudiantes: -Enmanuel Araya Esquivel. (emanuelarayaesq@gmail.com)
+//              -Randall Vargas Chaves. (randallv07@gmail.com)
+// Curso: EL-5511 Verificación funcional de circuitos integrados
+// Este Script esta estructurado en System Verilog
+// Propósito General: Diseño de pruebas en capas para un BUS de datos
+// Modulo: Genera las limitaciones en los escenarios de prueba.
+// Identifica las funciones que se ejecutarán y las limitaciones 
+// en la aleatoriedad.
+
 class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
   virtual bus_if #(.pckg_sz(pckg_sz)) vif [drvrs];
   

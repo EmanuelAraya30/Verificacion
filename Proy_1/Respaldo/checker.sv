@@ -1,3 +1,16 @@
+// Checker
+// Instituto Tecnologico de Costa Rica (www.tec.ac.cr)
+// Escuela de Ingeniería Electrónica
+// Prof: Ing. Ronny Garcia Ramirez. (rgarcia@tec.ac.cr)
+// Estudiantes: -Enmanuel Araya Esquivel. (emanuelarayaesq@gmail.com)
+//              -Randall Vargas Chaves. (randallv07@gmail.com)
+// Curso: EL-5511 Verificación funcional de circuitos integrados
+// Este Script esta estructurado en System Verilog
+// Propósito General: Diseño de pruebas en capas para un BUS de datos
+// Modulo: es el responsable de verificar si las acciones que el DUT 
+// ejecuta en sus salidas son coherentes con el comportamiento esperado
+// según su especificación
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Checker/scoreboard: este objeto es responsable de verificar que el comportamiento del DUT sea el esperado //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
