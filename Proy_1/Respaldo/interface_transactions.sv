@@ -139,8 +139,21 @@ class trans_sb #(parameter pckg_sz=32);
   
   // Método se utiliza para imprimir información sobre la transacción
   function print (string tag);
-    $display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g",  
-             $time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec);
+    $display("--------------------------------------------------------------");
+    $display("Tiempo=", $time);
+    $display("Etiqueta=", tag);
+		$display("Dato enviado = %g",  this.dato_env);
+		$display("Dato recibido = %b", this.dato_rec );
+    $display("Tiempo de envio = %b", this.tiempo_env );
+    $display("Tiempo de recibo = %b", this.tiempo_rec );
+    $display("Latencia de envio = %b", this.laten);
+    $display("Tipo de transaccion = %b", this.tipo);
+    $display("Dispostivo de origen = %b", this.dev_env);
+    $display("Dispostivo de destino = %b", this.dev_rec);
+		$display("--------------------------------------------------------------");
+		
+    //$display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g",  
+             //$time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec);
   endfunction
 endclass
 
