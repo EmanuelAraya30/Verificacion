@@ -117,7 +117,7 @@ class trans_sb #(parameter pckg_sz=32);
   int dev_env; // Dispositivo de donde se envia
   int dev_rec; // Dispositivo que recibe
 
-  agent #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz)) agent_inst_inter;
+  
 
   // Método para limpiar la transacción
   function clean();

@@ -101,7 +101,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     ambiente_inst.scoreboard_inst.tiempo_init=0;
     ambiente_inst.scoreboard_inst.tiempo_fin=0;
 	
-	ambiente_inst.agent_inst.num_trans_ag=100;    	
+	  ambiente_inst.agent_inst.num_trans_ag=100;    	
     tipo= trans_spec;
     ambiente_inst.agent_inst.retardo_ag=1;
     ambiente_inst.agent_inst.info_ag=0;
