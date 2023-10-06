@@ -2,7 +2,7 @@
  // Monitor: este objeto es responsable de leer las señales de salida del DUT //
  ///////////////////////////////////////////////////////////////////////////////
 
-class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz = 32);
+class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz = 32, parameter broadcast = {8{1'b1}});
     virtual bus_if #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz), .broadcast(broadcast))vif;
 
 
@@ -83,7 +83,7 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz 
             if (FiFo_out.pndng == 1) begin
                 FiFo_out.POP();
                 trans_mntr.tiempo = $time;
-                trans_mntr = id;
+                trans_mntr.dato_rec_mnt = id;
                 @(posedge FiFo_out.vif.clk);
                 trans_mntr.dato = FiFo_out.D_push;
                 monitor_checker_mailbox.put(trans_mntr);
@@ -96,8 +96,8 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz 
 endclass
 
 class monitor_padre #(parameter bits = 1,
-                      parameter drvrs = 4,
-                      parameter pckg_sz = 16);
+                      parameter drvrs = 5,
+                      parameter pckg_sz = 32);
 
     monitor_hijo #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz)) FiFo_son [drvrs];
 

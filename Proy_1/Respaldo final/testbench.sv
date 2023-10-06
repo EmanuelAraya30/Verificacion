@@ -27,7 +27,7 @@ module tb;
 
 	
   	test #(.pckg_sz(pckg_sz), .drvrs(drvrs), .bits(bits)) test_inst;
-	bus_if #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) vif(clk);
+	bus_if #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs), .broadcast(broadcast)) vif(clk);
 	
   bs_gnrtr_n_rbtr #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz),.broadcast(broadcast)) uut(
         .clk(clk),

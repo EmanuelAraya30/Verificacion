@@ -1,4 +1,4 @@
-class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1);
+class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1, parameter broadcast = {8{1'b1}});
   
   //Componentes del ambiente
   agent #(.pckg_sz(pckg_sz), .drvrs(drvrs)) agent_inst;

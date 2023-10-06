@@ -41,7 +41,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   
     
   function void print(string tag = "");
-    $display("[%g] %s Tiempo de envio=%g Tipo=%s Retardo=%g Transmisor=0x%h dato=0x%h Receptor=0x%h",$time,tag,this.tipo,this.retardo,this.dato_env,this.dato,this.dato_rec);
+    $display("[%g] %s Tiempo de envio=%g Tipo=%s Retardo=%g Transmisor=0x%h dato=0x%h Receptor=0x%h",$time,tag, this.tiempo, this.tipo,this.retardo,this.dato_env,this.dato,this.dato_rec);
   endfunction
 
 endclass
@@ -60,7 +60,7 @@ endclass
 // Objeto de transacción usado en el scoreboard  //
 ////////////////////////////////////////////////////
 
-class trans_sb #(parameter pckg_sz=16);
+class trans_sb #(parameter pckg_sz=32);
   bit [pckg_sz-1:0] dato_env; 
   bit [pckg_sz-1:0] dato_rec; 
   int tiempo_env;
