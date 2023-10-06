@@ -57,8 +57,8 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
     this.retardo = 0;
     this.dato = 0;
     this.tipo = trans_aleat;
-    this.dev_env = 0;
-    this.dev_rec = 0;
+    this.dato_env = 0;
+    this.dato_rec = 0;
   endfunction
   
   // Método se utiliza para imprimir información sobre la transacción
