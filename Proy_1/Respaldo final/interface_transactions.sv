@@ -129,11 +129,11 @@ endclass
 
 
 typedef mailbox #(instruct) tam;
-typedef mailbox #(trans_bus) adm;
-typedef mailbox #(trans_bus) dcm;
-typedef mailbox #(trans_sb) csm;
-typedef mailbox #(trans_bus ) DCHM; 
-typedef mailbox #(trans_monitor) mcm;  //mailbox de monitor a checker
+typedef mailbox #(trans_bus#(.pckg_sz(pckg_sz),.drvrs(drvrs))) adm;
+typedef mailbox #(trans_bus#(.pckg_sz(pckg_sz),.drvrs(drvrs))) dcm;
+typedef mailbox #(trans_sb#(.pckg_sz(pckg_sz))) csm;
+typedef mailbox #(trans_bus#(.pckg_sz(pckg_sz),.drvrs(drvrs))) DCHM; 
+typedef mailbox #(trans_monitor#(.pckg_sz(pckg_sz))) mcm;  //mailbox de monitor a checker
 typedef mailbox #(reporte) rm;
 
 
