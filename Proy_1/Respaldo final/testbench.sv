@@ -45,7 +45,7 @@ module tb;
 		test_inst.ambiente_inst.vif=vif;
 
 		fork
-			test_inst.run();
+			test_inst.inicia();
 		join_none
 
 	end

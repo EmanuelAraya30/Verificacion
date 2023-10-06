@@ -87,7 +87,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
 	
 	ambiente_inst.agent_inst.num_trans_ag=100;    	
     tipo= trans_spec;
-    ambiente_inst.agent_inst.retard_ag=1;
+    ambiente_inst.agent_inst.retardo_ag=1;
     ambiente_inst.agent_inst.info_ag=0;
     ambiente_inst.agent_inst.Rx_ag=0;
     ambiente_inst.agent_inst.Tx_ag=drvrs-1;
@@ -102,7 +102,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     reporte_mailbox.put(reporte_inst);
 	#100;
       	
-    $display("[%g]numero de transacciones realizadas =%g", $time, ambiente_inst.scoreboard_inst.inst_count);
+    $display("[%g]numero de transacciones realizadas =%g", $time, ambiente_inst.scoreboard_inst.cont_intruct);
     $display("Run seed= %d", $get_initial_random_seed());
 	$display("Se alcanza el tiempo limite de la prueba");
 	$finish;

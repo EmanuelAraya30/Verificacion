@@ -34,7 +34,7 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
       monitor_checker_mailbox.get(mntr_trans);
       $display("[%g]  Checker: Se recibe trasacción desde el monitor",$time);
       for(int i=0; i<emul_queue[mntr_trans.dato_rec_mnt].size(); i++)begin //Recorre cada posicion
-        if(emul_queue[emul_queue.dato_rec_mnt][i].dato==mntr_trans.dato)begin //compara
+        if(emul_queue[mntr_trans.dato_rec_mnt][i].dato==mntr_trans.dato)begin //compara
           to_sb.dato_env=emul_queue[mntr_trans.dato_rec_mnt][i].dato;
           to_sb.dato_rec=mntr_trans.dato;
           to_sb.tiempo_env=emul_queue[mntr_trans.dato_rec_mnt][i].tiempo;
