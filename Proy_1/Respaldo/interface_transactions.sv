@@ -64,8 +64,21 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   
   // Método se utiliza para imprimir información sobre la transacción
   function void print(string tag = "");
-    $display("[%g] %s Tiempo de envio=%g Tipo=%s Retardo=%g Transmisor=0x%h Dato=0x%h Receptor=0x%h",
-              $time,tag, this.tiempo, this.tipo,this.retardo,this.dato_env,this.dato,this.dato_rec);
+
+    $display("--------------------------------------------------------------");
+    $display("Tiempo=", $time);
+    $display(tag);
+		$display("Tiempo de envio = %g",  this.tiempo);
+		$display("Tipo de instruccion = %s", this.tipo );
+    $display("Retardo = %g", this.retardo );
+    $display("Transmisor = %h", this.dato_env );
+    $display("Dato a enviar = %h", this.dato);
+    $display("Receptor = %h", this.dato_rec);
+		$display("--------------------------------------------------------------");
+
+
+    //$display("[%g] %s Tiempo de envio=%g Tipo=%s Retardo=%g Transmisor=0x%h Dato=0x%h Receptor=0x%h",
+    //$time,tag, this.tiempo, this.tipo,this.retardo,this.dato_env,this.dato,this.dato_rec);
   endfunction
 
 endclass
@@ -95,8 +108,19 @@ class trans_monitor #(parameter pckg_sz = 32);
 
   // Método se utiliza para imprimir información sobre la transacción
   function void print(string tag = "");
-    $display("[%g] %s Tiempo=%g Dato=0x%h Receptor=0x%h",
-              $time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
+    $display("--------------------------------------------------------------");
+    $display("Tiempo=", $time);
+    $display(tag);
+    $display("Dato a enviar = %h",  this.dato);
+    $display("Tiempo de envio = %g",this.tiempo );
+		$display("Terminal receptora= %h", this.dato_rec_mnt );
+		$display("--------------------------------------------------------------");
+    
+    
+    
+    
+    //$display("[%g] %s Tiempo=%g Dato=0x%h Receptor=0x%h",
+              //$time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
   endfunction
 
 endclass
@@ -141,19 +165,19 @@ class trans_sb #(parameter pckg_sz=32);
   function print (string tag);
     $display("--------------------------------------------------------------");
     $display("Tiempo=", $time);
-    $display("Etiqueta=", tag);
-		$display("Dato enviado = %g",  this.dato_env);
-		$display("Dato recibido = %b", this.dato_rec );
-    $display("Tiempo de envio = %b", this.tiempo_env );
-    $display("Tiempo de recibo = %b", this.tiempo_rec );
-    $display("Latencia de envio = %b", this.laten);
-    $display("Tipo de transaccion = %b", this.tipo);
-    $display("Dispostivo de origen = %b", this.dev_env);
-    $display("Dispostivo de destino = %b", this.dev_rec);
+    $display(tag);
+		$display("Dato enviado = %h",  this.dato_env);
+		$display("Dato recibido = %h", this.dato_rec );
+    $display("Tiempo de envio = %g", this.tiempo_env );
+    $display("Tiempo de recibo = %g", this.tiempo_rec );
+    $display("Latencia de envio = %g", this.laten);
+    $display("Tipo de transaccion = %g", this.tipo);
+    $display("Dispostivo de origen = %g", this.dev_env);
+    $display("Dispostivo de destino = %g", this.dev_rec);
 		$display("--------------------------------------------------------------");
 		
     //$display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g",  
-             //$time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec);
+    //$time, tag, this.dato_env, this.dato_rec, this.tiempo_env, this.tiempo_rec, this.laten, this.tipo, this.dev_env, this.dato_rec);
   endfunction
 endclass
 
