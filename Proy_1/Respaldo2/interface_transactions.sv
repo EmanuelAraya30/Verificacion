@@ -42,7 +42,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
     $display("[%g]",tag);
 		$display("Tiempo de envio = %g",  this.tiempo);
 		$display("Tipo de instruccion = %s", this.tipo );
-    $display("Retardo = %h", this.retardo );
+    $display("Retardo = %g", this.retardo );
     $display("Transmisor = %h", this.dato_env );
     $display("Dato a enviar = %h", this.dato);
     $display("Receptor = %h", this.dato_rec);
@@ -103,8 +103,8 @@ class trans_sb #(parameter pckg_sz=32);
     $display("Tiempo de recibido = %g", this.tiempo_rec );
     $display("Latencia transac   = %g", this.laten);
     $display("Tipo de instrucc   = %g", this.tipo);
-    $display("Terminal de envio  = %h", this.dev_env );
-    $display("Terminal de recibo = %h", this.dato_rec);
+    $display("Terminal de envio  = %g", this.dev_env );
+    $display("Terminal de recibo = %g", this.dato_rec);
 		$display("--------------------------------------------------------------");
     /*$display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g", 
              $time,
@@ -140,9 +140,9 @@ class trans_monitor #(parameter pckg_sz = 32);
     $display("TRANSACCIONES MONITOR");
     $display("--------------------------------------------------------------");
     $display("[%g]                             ="   ,tag);
-		$display("Tiempo                           = %h", this.tiempo);
+		$display("Tiempo                           = %g", this.tiempo);
 		$display("Dato                             = %h", this.dato);
-    $display("Terminal receptora Scoreboard    = %g", this.dato_rec_mnt );
+    $display("Terminal receptora Scoreboard    = %h", this.dato_rec_mnt );
 		$display("--------------------------------------------------------------");
     //$display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
   endfunction
