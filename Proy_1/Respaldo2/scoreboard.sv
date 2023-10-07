@@ -53,7 +53,7 @@ task run;
       if(reporte_mailbox.num()>0)begin
         reporte_mailbox.get(reporte_inst);
         case(reporte_inst)
-        rpt_prom: begin
+        reporte_prom: begin
             $display("[%g]Score Board: Recibida Orden Retardo Promedio", $time);
             retardo_promedio = retardo_total/cont_intruct;
             $display("[%g] Score board: el retardo promedio es: %0.3f", $time, retardo_promedio);
@@ -62,19 +62,19 @@ task run;
               $display("[%g] Score board: el retardo promedio en driver [%g] es: %0.3f", $time, i, ret_prom_drvrs[i]);
             end
           end
-          rpt_bw_max: begin
+          reporte_bw_max: begin
             $display("[%g]Score Board: Recibida Orden Reporte de ancho de banda maximo", $time);
             AB_max = $fopen("AB_max.csv", "a");
             $fwrite(AB_max, "%0d,%0d,%0.3f\n", pckg_sz, drvrs, (cont_intruct*pckg_sz*1000)/(tiempo_fin-tiempo_init));
             $fclose(AB_max); 
           end
-          rpt_bw_min: begin
+          reporte_bw_min: begin
             $display("[%g]Score Board: Recibida Orden Reporte de ancho de banda minimo", $time);
             AB_min = $fopen("AB_min.csv", "a");
             $fwrite(AB_min, "%0d,%0d,%0.3f\n", pckg_sz, drvrs, (cont_intruct*pckg_sz*1000)/(tiempo_fin-tiempo_init));
             $fclose(AB_min); 
           end
-          rpt_transac: begin
+          reporte_transac: begin
             $display("[%g]Score Board: Recibida Orden Reporte de transaccion", $time);
             reporte = $fopen("reporte.csv", "w");
             $fwrite(reporte, "Dato recibido, Dato enviado, Tx, Rx, latencia, tipo\n");

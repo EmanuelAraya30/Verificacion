@@ -77,7 +77,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     test_agent_mailbox.put(tipo);
     #2000000;
   
-    reporte_inst=rpt_bw_max;
+    reporte_inst=reporte_bw_max;
     reporte_mailbox.put(reporte_inst);
     #100;
     ambiente_inst.scoreboard_inst.inicio=1;
@@ -85,7 +85,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     ambiente_inst.scoreboard_inst.tiempo_init=0;
     ambiente_inst.scoreboard_inst.tiempo_fin=0;
 	
-	ambiente_inst.agent_inst.num_trans_ag=100;    	
+	  ambiente_inst.agent_inst.num_trans_ag=100;    	
     tipo= trans_determinada;
     ambiente_inst.agent_inst.retardo_ag=1;
     ambiente_inst.agent_inst.info_ag=0;
@@ -94,11 +94,11 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     test_agent_mailbox.put(tipo);
     #2000000;
       
-    reporte_inst=rpt_bw_min;
+    reporte_inst=reporte_bw_min;
     reporte_mailbox.put(reporte_inst);
-    reporte_inst=rpt_prom;
+    reporte_inst=reporte_prom;
     reporte_mailbox.put(reporte_inst);
-    reporte_inst=rpt_transac;
+    reporte_inst=reporte_transac;
     reporte_mailbox.put(reporte_inst);
 	#100;
       	

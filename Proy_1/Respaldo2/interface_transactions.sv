@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 typedef enum {transaccion_aleat, broadcast, trans_todos, retardo_min, trans_determinada} instruct; 
-typedef enum {rpt_prom, rpt_bw_max, rpt_bw_min, rpt_transac} reporte; 
+typedef enum {reporte_prom, reporte_bw_max, reporte_bw_min, reporte_transac} reporte; 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   endfunction
   
     
-  function void print(string tag = "");
+  function void print(string tag="");
     $display("--------------------------------------------------------------");
     $display("BUS TRANSACCIONES");
     $display("--------------------------------------------------------------");
@@ -98,7 +98,7 @@ class trans_sb #(parameter pckg_sz=32);
     $display("--------------------------------------------------------------");
     $display("TRANSACCIONES SCOREBOARD");
     $display("--------------------------------------------------------------");
-    $display("[%s]               =" ,tag);
+    $display("[%s]=",tag);
 		$display("Dato enviado       = %h", this.dato_env);
 		$display("Dato recibido      = %h", this.dato_rec);
     $display("Tiempo de envio    = %g", this.tiempo_env );
