@@ -51,7 +51,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     
     tipo = trans_determinada; // Direcciones de ID inválidas 
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transacciones con direcciones de envio invalidas en tiempo [%g] con numero de transacciones=%g", $time,num_trans_ag);
+    $display("Transacciones con direcciones de envio invalidas en tiempo [%g] con numero de transacciones=%g", $time,num_trans_ag);
     
     
     tipo = trans_determinada;
