@@ -54,7 +54,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     $display("[%g] Transacciones con direcciones de envio invalidas en tiempo [%g] con numero de transacciones=%g", $time,num_trans_ag);
     
     
-    tipo = trans_spec;
+    tipo = trans_determinada;
     ambiente_inst.agent_inst.retardo_ag = 7;
     ambiente_inst.agent_inst.info_ag = 255;
     ambiente_inst.agent_inst.Tx_ag = drvrs-1;
@@ -73,7 +73,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
         
     ambiente_inst.agent_inst.num_trans_ag=100;
     ambiente_inst.agent_inst.max_retardo_ag=1;
-    tipo=trans_aleat;
+    tipo=transaccion_aleat;
     test_agent_mailbox.put(tipo);
     #2000000;
   
@@ -86,7 +86,7 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     ambiente_inst.scoreboard_inst.tiempo_fin=0;
 	
 	ambiente_inst.agent_inst.num_trans_ag=100;    	
-    tipo= trans_spec;
+    tipo= trans_determinada;
     ambiente_inst.agent_inst.retardo_ag=1;
     ambiente_inst.agent_inst.info_ag=0;
     ambiente_inst.agent_inst.Rx_ag=0;
