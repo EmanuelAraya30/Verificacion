@@ -1,131 +1,117 @@
-// Monitor
-// Instituto Tecnologico de Costa Rica (www.tec.ac.cr)
-// Escuela de Ingeniería Electrónica
-// Prof: Ing. Ronny Garcia Ramirez. (rgarcia@tec.ac.cr)
-// Estudiantes: -Enmanuel Araya Esquivel. (emanuelarayaesq@gmail.com)
-//              -Randall Vargas Chaves. (randallv07@gmail.com)
-// Curso: EL-5511 Verificación funcional de circuitos integrados
-// Este Script esta estructurado en System Verilog
-// Propósito General: Diseño de pruebas en capas para un BUS de datos
-// Modulo: Este objeto es responsable de leer las señales de salida del DUT.
 
- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- // fifo_monitor: este objeto es responsable simular una fifo para obtener los datos de salida del DUT y pasarlos al Checker //
- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class fifo_monitor #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz = 32, parameter broadcast = {8{1'b1}});
-    virtual bus_if #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz), .broadcast(broadcast))vif; // Se genera la conexión por medio de interface
-    // Se establecen entrada y salidas de una fifo
-    bit pop;
-    bit push;
-    bit pndng;
-    bit [pckg_sz-1:0] D_pop;
-    bit [pckg_sz-1:0] D_push;
-    bit [pckg_sz-1:0] c [$];
-    int id;
-    
-    // Se genera un constructor para los diferentes ID
-    function new(int ID);
-        this.pop = 0;
-        this.push = 0;
-        this.pndng = 0;
-        this.D_pop = 0;
-        this.c = {};
-        this.id=ID;  
-    endfunction
 
-    // Función de push
-    task PUSH();
-        forever begin
-            @(posedge vif.clk);
-            push=vif.push[0][id];
-        end
-    endtask
-
-    // Función que actualiza el dato push
-    task D_PUSH();
-        forever begin
-            @(posedge vif.clk);
-            D_push=vif.D_push[0][id]; 
-            if(push==1)begin
-                c.push_back(D_push);
-                pndng = 1;
-            end
-        end
-    endtask
-	
-	//Función de pop
-	function void POP();
-		D_pop=c.pop_front();
-		if(c.size()==0)begin
-			pndng =0;
+//fifo simulada
+class fifomonitor #(parameter width=32, parameter bits=1, parameter n_term=5);
+	virtual switch_if #(.width(width), .bits(bits), .n_term(n_term)) vif;
+  	bit pop;
+	bit push;
+	bit pndng;
+    	bit [width-1:0] Dout;
+    	bit [width-1:0] D_push;
+	bit [width-1:0] fifosimul [$];
+    	int ident;
+  
+  	function new(int id);
+	   this.pop=0;
+	   this.push=0;
+	   this.pndng=0;
+	   this.Dout=0;
+	   this.fifosimul= {};
+           this.ident=id;
+	endfunction
+  
+  
+  	task pushf();//funcion que actualiza el push que proviene del DUT
+		forever begin
+		@(posedge vif.clk);
+          	push=vif.push[0][ident];
 		end
-	endfunction	
-
+	endtask
+    	task update(); //Actualiza el dato que proviene del DUT en la entrada de la fifo
+		forever begin
+		@(posedge vif.clk);
+       		   D_push=vif.D_push[0][ident];
+         	   if(push==1)begin
+            	   fifosimul.push_back(D_push);
+                   pndng=1;
+		  end
+		end
+	endtask
+  
+  	function void popf();//Saca el dato recibido de la fifo 
+		Dout=fifosimul.pop_front();
+     		 if(fifosimul.size()==0)begin
+       		  pndng=0;
+     		 end
+	endfunction
+  
 endclass
 
- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- // monitor_hijo: Estos monitores se generan por cada driver para recibir las señales de salida y envian al monitor_padre //
- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz = 32);
-    fifo_monitor #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz)) FiFo_out; // Se genera instancia de clase fifo_monitor
-    trans_monitor #(.pckg_sz(pckg_sz)) trans_mntr; // Se inicia la transacción del monitor
-    mcm monitor_checker_mailbox; // Se genera el mailbox    
-    int id;
-
-    // Genera un constructor por cada ID
-    function new(int ID);
-        this.id = ID;
-        this.FiFo_out = new(ID);
-    endfunction
-
-    //Se inicializa el monitor
-    task inicia();
-        $display("[%g]  El Monitor [%g] inicializado", $time, id);
-        fork
-            FiFo_out.PUSH();
-            FiFo_out.D_PUSH();
-        join_none
-
-        forever begin   
-            trans_mntr=new;
-            @(posedge FiFo_out.vif.clk);
-            if (FiFo_out.pndng == 1) begin
-                FiFo_out.POP();
-                trans_mntr.tiempo = $time;
-                trans_mntr.dato_rec_mnt = id;
-                @(posedge FiFo_out.vif.clk);
-                trans_mntr.dato = FiFo_out.D_push;
-                monitor_checker_mailbox.put(trans_mntr);
-                trans_mntr.print("Monitor: Transaccion recibida");
-            end
-            @(posedge FiFo_out.vif.clk);
+//Monitor hijo
+class monitor_child #(parameter width=32, parameter bits=1, parameter n_term=5);
+  	
+  fifomonitor  #(.width(width), .bits(bits), .n_term(n_term)) fifo;
+  trans_monitor #(.width(width)) transaccion;
+  comando_mnt_chk_mbx mnt_chk_mbx;
+  
+  int ident;
+  
+  function new(int id);
+    this.ident=id;
+    this.fifo=new(id);
+  endfunction
+    
+    
+    task run();
+      $display("[%g] Monitor # [%g] ha inicializado", $time, ident);
+      fork //se corren las funciones de fifo
+        fifo.pushf();
+        fifo.update();
+      join_none
+      	
+      forever begin
+      	transaccion=new;
+        @(posedge fifo.vif.clk);
+        if(fifo.pndng==1)begin//Espera a que se obtenga un dato
+          
+          fifo.popf();
+          transaccion.tiempo=$time;
+          transaccion.terminal_recibo=ident;
+          @(posedge fifo.vif.clk);
+          transaccion.dato=fifo.Dout;
+          mnt_chk_mbx.put(transaccion);//Se envia la transaccion recibida al checker
+          transaccion.print("Monitor: Transaccion recibida");
         end
+        @(posedge fifo.vif.clk);
+      end
     endtask
-
+  
 endclass
 
- ////////////////////////////////////////////////////////////////////
- // monitor_padre: Genera a los monitores hijos y los conecta a el //
- ////////////////////////////////////////////////////////////////////
-class monitor_padre #(parameter bits = 1, parameter drvrs = 5, parameter pckg_sz = 32);
-    monitor_hijo #(.bits(bits), .drvrs(drvrs), .pckg_sz(pckg_sz)) monitor_son [drvrs]; //Genera instancia de la clase hijo    
-    int id;
-    // Genera un constructor por cada ID que seran los hijos
-    function new();
-        for(int i=0; i<drvrs; i++)begin
-            monitor_son[i]=new(i);
-        end
-    endfunction
+//Monitor padre
+class monitor_master #(parameter width=32,parameter n_term=5, parameter bits=1 );
+      monitor_child #(.width(width), .bits(bits), .n_term(n_term)) monitorc [n_term];
 
-    //Ejecuta a los hijos creados
-    task inicia();
-        for(int i = 0; i < drvrs; i++)begin
-            fork
-                automatic int j = i;
-                begin
-                    monitor_son[j].inicia();
-                end
-            join_none
-        end 
-    endtask
+
+  function new();
+    for(int i=0; i<n_term; i++)begin
+    	//se corren cada unos de los hijos
+        monitorc[i]=new(i);
+      end
+  endfunction
+  	
+  
+  task run();
+     
+    for(int i=0; i < n_term; i++ )  begin
+      fork
+        automatic int j = i;
+        begin
+          //Se ejecutan los hijos al mismo tiempo
+          monitorc[j].run();
+          
+        end
+      join_none
+    end
+  endtask
 endclass
