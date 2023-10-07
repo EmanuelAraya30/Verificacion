@@ -1,3 +1,13 @@
+// Estudiantes: -Enmanuel Araya Esquivel. (emanuelarayaesq@gmail.com)
+//              -Randall Vargas Chaves. (randallv07@gmail.com)
+// Curso: EL-5511 Verificación funcional de circuitos integrados
+// Este Script esta estructurado en System Verilog
+// Propósito General: Diseño de pruebas en capas para un BUS de datos
+// Modulo: Interface
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 // Definición del tipo de transacciones posibles en el bus y sus reportes //
 ////////////////////////////////////////////////////////////////////////////
@@ -20,7 +30,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   bit[pckg_sz-1:0] dato; // este es el dato de la transacción 
   
   //constraint
-  constraint const_retardo {retardo <= max_retardo; retardo>0;}
+  constraint const_retardo {retardo <= max_retardo; retardo>0;} //Se definen los constraints para el retardo, los datos de envio y recibo
   constraint const_dato_rec {dato_rec < drvrs; dato_rec >= 0; dato_rec != dato_env;}
   constraint const_dato_env {dato_env < drvrs; dato_env >= 0;}
 
@@ -40,6 +50,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
     $display("--------------------------------------------------------------");
     $display("BUS TRANSACCIONES");
     $display("--------------------------------------------------------------");
+
     $display("[%s]",tag);
 		$display("Tiempo de envio = %g",  this.tiempo);
 		$display("Tipo de instruccion = %s", this.tipo );
@@ -54,14 +65,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
 
 endclass
 
-////////////////////////////////////////////////////////////////
-// Interface: Esta es la interface que se conecta con el Bus  //
-////////////////////////////////////////////////////////////////
 
-
-////////////////////////////////////////////////
-// Objeto de transacción usado en el monitor  //
-////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////
@@ -78,19 +82,6 @@ class trans_sb #(parameter pckg_sz=32);
   int dev_env;
   int dev_rec;
 
-  trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) instancia;
-  
-  /*function clean();
-    this.dato_env = 0;
-    this.dato_rec = 0;
-    this.tiempo_env = 0;
-    this.tiempo_rec = 0;
-    this.laten = 0;
-    this.tipo = trans_aleat;
-    this.dev_env = 0;
-    this.dev_rec = 0;
-  endfunction */
-
   task calc_laten;
     this.laten = this.tiempo_rec - this.tiempo_env;
   endtask
@@ -100,8 +91,8 @@ class trans_sb #(parameter pckg_sz=32);
     $display("TRANSACCIONES SCOREBOARD");
     $display("--------------------------------------------------------------");
     $display("[%s]",tag);
-		$display("Dato enviado       = %h", this.instancia.dato_env);
-		$display("Dato recibido      = %h", this.instancia.dato_rec);
+		$display("Dato enviado       = %h", this.dato_env);
+		$display("Dato recibido      = %h", this.dato_rec);
     $display("Tiempo de envio    = %g", this.tiempo_env );
     $display("Tiempo de recibido = %g", this.tiempo_rec );
     $display("Latencia transac   = %g", this.laten);
@@ -109,20 +100,13 @@ class trans_sb #(parameter pckg_sz=32);
     $display("Terminal de envio  = %g", this.dev_env );
     $display("Terminal de recibo = %g", this.dato_rec);
 		$display("--------------------------------------------------------------");
-    /*$display("[%g] %s dato_env=%h,dato_rec=%h,t_env=%g,t_rec=%g,ltncy=%g,tipo=%g,term_env=%g,term_rec=%g", 
-             $time,
-             tag, 
-             this.dato_env, 
-             this.dato_rec,              
-             this.tiempo_env,
-             this.tiempo_rec,
-             this.laten,
-             this.tipo,
-             this.dev_env,
-             this.dato_rec
-             );*/
+    
   endfunction
 endclass
+
+////////////////////////////////////////////////
+// Objeto de transacción usado en el monitor  //
+////////////////////////////////////////////////
 
 
 class trans_monitor #(parameter pckg_sz = 32);
@@ -167,6 +151,10 @@ typedef mailbox #(trans_bus#(.pckg_sz(pckg_sz),.drvrs(drvrs))) DCHM;
 typedef mailbox #(trans_monitor#(.pckg_sz(pckg_sz))) mcm;  //mailbox de monitor a checker
 typedef mailbox #(reporte) rm;
 
+
+////////////////////////////////////////////////////////////////
+// Interface: Esta es la interface que se conecta con el Bus  //
+////////////////////////////////////////////////////////////////
 
 interface bus_if #(parameter bits = 1,parameter drvrs = 4, parameter pckg_sz = 16, parameter broadcast = {8{1'b1}}) (
   input bit clk
