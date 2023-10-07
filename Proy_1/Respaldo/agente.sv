@@ -12,10 +12,10 @@
 
 
 
-class number_trans_aleat #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
+/*class number_trans_aleat #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   rand int aleat;
   constraint const_aleat {aleat <10; aleat>0;}
-endclass
+endclass */
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -19,8 +19,8 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
   tam test_agent_mailbox;
   rm reporte_mailbox;
   
-  parameter num_trans_ag = 1;
-  parameter max_retardo_ag = 3;
+  parameter num_trans_ag = 50;
+  parameter max_retardo_ag = 30;
   
   instruct tipo;
   reporte  reporte_inst;
@@ -65,9 +65,9 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     test_agent_mailbox.put(tipo);
     $display("Se efectuan transacciones con direcciones de ID en tiempo %g con %g transacciones", $time,num_trans_ag);
     
-    tipo = num_trans_aleat; // Numero aleatorio de transacciones 
-    test_agent_mailbox.put(tipo);
-    $display("Se efectuan numero aleatorio de transacciones en tiempo %g con %g transacciones", $time,num_trans_ag);
+    //tipo = num_trans_aleat; // Numero aleatorio de transacciones 
+    //test_agent_mailbox.put(tipo);
+    //$display("Se efectuan numero aleatorio de transacciones en tiempo %g con %g transacciones", $time,num_trans_ag);
 
     
     tipo = trans_spec;

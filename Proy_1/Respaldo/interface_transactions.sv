@@ -64,7 +64,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   
   // Método se utiliza para imprimir información sobre la transacción
   function void print(string tag = "");
-
+    $display("BUS TRANSACCIONES");
     $display("--------------------------------------------------------------");
     $display("Tiempo=", $time);
     $display(tag);
@@ -107,7 +107,9 @@ class trans_monitor #(parameter pckg_sz = 32);
   endfunction
 
   // Método se utiliza para imprimir información sobre la transacción
+  
   function void print(string tag = "");
+    $display("MONITOR");
     $display("--------------------------------------------------------------");
     $display("Tiempo=", $time);
     $display(tag);
@@ -163,6 +165,8 @@ class trans_sb #(parameter pckg_sz=32);
   
   // Método se utiliza para imprimir información sobre la transacción
   function print (string tag);
+
+    $display("SCOREBOARD");
     $display("--------------------------------------------------------------");
     $display("Tiempo=", $time);
     $display(tag);
@@ -171,7 +175,7 @@ class trans_sb #(parameter pckg_sz=32);
     $display("Tiempo de envio = %g", this.tiempo_env );
     $display("Tiempo de recibo = %g", this.tiempo_rec );
     $display("Latencia de envio = %g", this.laten);
-    $display("Tipo de transaccion = %g", this.tipo);
+    $display("Tipo de transaccion = %s", this.tipo);
     $display("Dispostivo de origen = %g", this.dev_env);
     $display("Dispostivo de destino = %g", this.dev_rec);
 		$display("--------------------------------------------------------------");
