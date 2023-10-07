@@ -96,7 +96,7 @@ class trans_sb #(parameter pckg_sz=32);
   function print (string tag);
     $display("TRANSACCIONES SCOREBOARD");
     $display("--------------------------------------------------------------");
-    $display("[%g]               ="              ,tag);
+    $display("[%s]               ="              ,tag);
 		$display("Dato enviado       = %h", this.dato_env);
 		$display("Dato recibido      = %h", this.dato_rec);
     $display("Tiempo de envio    = %g", this.tiempo_env );
@@ -139,7 +139,7 @@ class trans_monitor #(parameter pckg_sz = 32);
 
     $display("TRANSACCIONES MONITOR");
     $display("--------------------------------------------------------------");
-    $display("[%g]                             ="   ,tag);
+    $display("[%s]                             ="   ,tag);
 		$display("Tiempo                           = %g", this.tiempo);
 		$display("Dato                             = %h", this.dato);
     $display("Terminal receptora Scoreboard    = %h", this.dato_rec_mnt );
