@@ -78,7 +78,7 @@ class trans_sb #(parameter pckg_sz=32);
   int dev_rec;
 
   
-  function clean();
+  /*function clean();
     this.dato_env = 0;
     this.dato_rec = 0;
     this.tiempo_env = 0;
@@ -87,7 +87,7 @@ class trans_sb #(parameter pckg_sz=32);
     this.tipo = trans_aleat;
     this.dev_env = 0;
     this.dev_rec = 0;
-  endfunction
+  endfunction */
 
   task calc_laten;
     this.laten = this.tiempo_rec - this.tiempo_env;
@@ -139,7 +139,8 @@ class trans_monitor #(parameter pckg_sz = 32);
 
     $display("TRANSACCIONES MONITOR");
     $display("--------------------------------------------------------------");
-    $display("[%s]                             ="   ,tag);
+    $display(" Tiempo de simulacion            =[%g]", $time);
+    $display("[%s]                             =" ,tag);
 		$display("Tiempo                           = %g", this.tiempo);
 		$display("Dato                             = %h", this.dato);
     $display("Terminal receptora Scoreboard    = %h", this.dato_rec_mnt );
