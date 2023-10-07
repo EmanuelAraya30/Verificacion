@@ -46,7 +46,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   
   task inicia();
     $display("El agente se inicializa en el tiempo [%g]", $time);
-    aleatorio.randomize();
+    //aleatorio.randomize();
     
     
     forever begin
