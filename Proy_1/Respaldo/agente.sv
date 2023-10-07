@@ -39,7 +39,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   bit [3:0] Tx_ag;
   bit [7:0] Rx_ag;
 
-  number_trans_aleat  aleatorio = new();
+  //number_trans_aleat  aleatorio = new();
 
   
   
