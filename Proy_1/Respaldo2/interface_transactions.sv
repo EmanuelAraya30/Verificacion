@@ -24,7 +24,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   constraint const_dato_rec {dato_rec < drvrs; dato_rec >= 0; dato_rec != dato_env;}
   constraint const_dato_env {dato_env < drvrs; dato_env >= 0;}
 
-  function new(bit [pckg_sz-19:0] info=0, int ret =0,bit[pckg_sz-1:0] dto=0,int tmp = 0, instruct tpo = trans_aleat, int mx_rtrd = 20, bit [3:0] tx = 0, bit [7:0] rx = 0);
+  function new(bit [pckg_sz-19:0] info=0, int ret =0,bit[pckg_sz-1:0] dto=0,int tmp = 0, instruct tpo = transaccion_aleat, int mx_rtrd = 20, bit [3:0] tx = 0, bit [7:0] rx = 0);
     this.retardo = ret;
     this.dato = dto;
     this.tiempo = tmp;
