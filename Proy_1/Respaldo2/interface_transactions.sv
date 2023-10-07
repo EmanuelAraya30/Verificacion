@@ -78,6 +78,7 @@ class trans_sb #(parameter pckg_sz=32);
   int dev_env;
   int dev_rec;
 
+  trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) instancia;
   
   /*function clean();
     this.dato_env = 0;
@@ -99,8 +100,8 @@ class trans_sb #(parameter pckg_sz=32);
     $display("TRANSACCIONES SCOREBOARD");
     $display("--------------------------------------------------------------");
     $display("[%s]",tag);
-		$display("Dato enviado       = %h", trans_bus.dato_env);
-		$display("Dato recibido      = %h", trans_bus.dato_rec);
+		$display("Dato enviado       = %h", this.instancia.dato_env);
+		$display("Dato recibido      = %h", this.instancia.dato_rec);
     $display("Tiempo de envio    = %g", this.tiempo_env );
     $display("Tiempo de recibido = %g", this.tiempo_rec );
     $display("Latencia transac   = %g", this.laten);
