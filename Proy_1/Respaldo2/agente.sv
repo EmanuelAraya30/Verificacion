@@ -23,7 +23,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
         $display("El agente # %g  recibe una instruccion",$time );
         test_agent_mailbox.get(tipo);
         case(tipo)
-          trans_aleat:begin //secuencia aleatoria de transacciones
+          transaccion_aleat:begin //secuencia aleatoria de transacciones
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
               transacciones.max_retardo= max_retardo_ag;
@@ -49,7 +49,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
           
           
           
-          trans_each:begin //Transacciones con retardo aleatorio
+          trans_todos:begin //Transacciones con retardo aleatorio
             for(int j=0; j<drvrs; j++)begin
               for(int i=0; i<drvrs; i++)begin
                 transacciones = new();
@@ -65,7 +65,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
             end
           end
           
-          trans_retarmin:begin //Transacciones especificas
+          retardo_min:begin //Transacciones especificas
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
               transacciones.retardo=retardo_ag;
@@ -78,7 +78,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
           end
           
           
-          trans_spec:begin //Transacciones especificas
+          trans_determinada:begin //Transacciones especificas
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
               transacciones.retardo=retardo_ag;

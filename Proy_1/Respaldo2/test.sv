@@ -33,25 +33,25 @@ class test #(parameter pckg_sz = 32, parameter drvrs =5, parameter bits=1);
     join_none
     
     
-    tipo = trans_aleat; //cantidad de transacciones
+    tipo = transaccion_aleat; //cantidad de transacciones
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion aleatorizando numero de dispositivos", $time,num_trans_ag);
+    $display(" Transacciones aleatorias efectuadas en tiempo [%g], con numero de transacciones=%g", $time,num_trans_ag);
     
     tipo = broadcast; //Cantidad de dispositivos
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion aleatorizando numero de dispositivos", $time,num_trans_ag);
+    $display(" Transacciones de tipo broadcast en tiempo [%g] con numero de transacciones=%g", $time,num_trans_ag);
     
-    tipo = trans_each; // Prueba de reset
+    tipo = trans_todos; // Prueba de reset
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion con prueba de reset=%g", $time,num_trans_ag);
+    $display(" Envio de transacciones a todos los dispositivos =[%g] con numero de transacciones=%g", $time,num_trans_ag);
     
-    tipo = trans_retarmin; // Retardo aleatorio 
+    tipo = retardo_min; // Retardo aleatorio 
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transaccion con retardo aleatorio=%g", $time,num_trans_ag);
+    $display(" Transaccion con retardo aleatorio en tiempo [%g] con numero de transacciones=%g", $time,num_trans_ag);
     
-    tipo = trans_spec; // Direcciones de ID inválidas 
+    tipo = trans_determinada; // Direcciones de ID inválidas 
     test_agent_mailbox.put(tipo);
-    $display("[%g] Transacciones con direcciones de envio invalidas=%g", $time,num_trans_ag);
+    $display("[%g] Transacciones con direcciones de envio invalidas en tiempo [%g] con numero de transacciones=%g", $time,num_trans_ag);
     
     
     tipo = trans_spec;

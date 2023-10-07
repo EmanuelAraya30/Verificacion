@@ -2,7 +2,7 @@
 // Definición del tipo de transacciones posibles en el bus y sus reportes //
 ////////////////////////////////////////////////////////////////////////////
 
-typedef enum {trans_aleat, broadcast, trans_each, trans_retarmin, trans_spec} instruct; 
+typedef enum {transaccion_aleat, broadcast, trans_todos, retardo_min, trans_determinada} instruct; 
 typedef enum {rpt_prom, rpt_bw_max, rpt_bw_min, rpt_transac} reporte; 
 
 
@@ -37,6 +37,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   
     
   function void print(string tag = "");
+    $display("--------------------------------------------------------------");
     $display("BUS TRANSACCIONES");
     $display("--------------------------------------------------------------");
     $display("[%s]",tag);
@@ -94,6 +95,7 @@ class trans_sb #(parameter pckg_sz=32);
   endtask
   
   function print (string tag);
+    $display("--------------------------------------------------------------");
     $display("TRANSACCIONES SCOREBOARD");
     $display("--------------------------------------------------------------");
     $display("[%s]               ="              ,tag);
@@ -102,7 +104,7 @@ class trans_sb #(parameter pckg_sz=32);
     $display("Tiempo de envio    = %g", this.tiempo_env );
     $display("Tiempo de recibido = %g", this.tiempo_rec );
     $display("Latencia transac   = %g", this.laten);
-    $display("Tipo de instrucc   = %g", this.tipo);
+    $display("Tipo de instrucc   = %s", this.tipo);
     $display("Terminal de envio  = %g", this.dev_env );
     $display("Terminal de recibo = %g", this.dato_rec);
 		$display("--------------------------------------------------------------");
@@ -136,7 +138,7 @@ class trans_monitor #(parameter pckg_sz = 32);
 
     
   function void print(string tag = "");
-
+    $display("--------------------------------------------------------------");
     $display("TRANSACCIONES MONITOR");
     $display("--------------------------------------------------------------");
     $display(" Tiempo de simulacion            =[%g]", $time);
