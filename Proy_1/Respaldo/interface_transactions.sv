@@ -53,14 +53,14 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   endfunction
 
     // Método para limpiar la transacción
-  function clean();
+  /*function clean();
     this.informacion = 0;
     this.retardo = 0;
     this.dato = 0;
     this.tipo = trans_aleat;
     this.dato_env = 0;
     this.dato_rec = 0;
-  endfunction
+  endfunction */
   
   // Método se utiliza para imprimir información sobre la transacción
   function void print(string tag = "");
@@ -71,9 +71,9 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
 		$display("Tiempo de envio = %g",  this.tiempo);
 		$display("Tipo de instruccion = %s", this.tipo );
     $display("Retardo = %g", this.retardo );
-    $display("Transmisor = %h", this.dato_env );
-    $display("Dato a enviar = %h", this.dato);
-    $display("Receptor = %h", this.dato_rec);
+    $display("Transmisor = 0x%h", this.dato_env );
+    $display("Dato a enviar = 0x%h", this.dato);
+    $display("Receptor = 0x%h", this.dato_rec);
 		$display("--------------------------------------------------------------");
 
 
@@ -113,15 +113,15 @@ class trans_monitor #(parameter pckg_sz = 32);
     $display("--------------------------------------------------------------");
     $display("Tiempo=", $time);
     $display(tag);
-    $display("Dato a enviar = %h",  this.dato);
-    $display("Tiempo de envio = %g",this.tiempo );
+    $display("Dato a enviar = 0x%h",  this.dato);
+    $display("Tiempo de envio = 0x%g",this.tiempo );
 		$display("Terminal receptora= %h", this.dato_rec_mnt );
 		$display("--------------------------------------------------------------");
     
     
     
     
-    //$display("[%g] %s Tiempo=%g Dato=0x%h Receptor=0x%h",
+    $display("[%g] %s Tiempo=%g Dato=0x%h Receptor=0x%h",
               //$time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
   endfunction
 
@@ -146,7 +146,7 @@ class trans_sb #(parameter pckg_sz=32);
   
 
   // Método para limpiar la transacción
-  function clean();
+  /*function clean();
     this.dato_env = 0;
     this.dato_rec = 0;
     this.tiempo_env = 0;
@@ -154,9 +154,9 @@ class trans_sb #(parameter pckg_sz=32);
     this.laten = 0;
     this.tipo = trans_aleat;
     this.dev_env = 0;
-    this.dev_rec = 0;
+    this.dev_rec = 0; 
     
-  endfunction
+  endfunction*/
 
   // Calcula latencia en base a los tiempos
   task calc_laten;
