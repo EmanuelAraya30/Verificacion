@@ -121,7 +121,7 @@ class trans_monitor #(parameter pckg_sz = 32);
     
     
     
-    $display("[%g] %s Tiempo=%g Dato=0x%h Receptor=0x%h",
+    //$display("[%g] %s Tiempo=%g Dato=0x%h Receptor=0x%h",
               //$time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
   endfunction
 
