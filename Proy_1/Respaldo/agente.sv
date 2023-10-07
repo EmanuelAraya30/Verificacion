@@ -122,6 +122,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               agent_driver_mailbox[transacciones.dato_env].try_put(transacciones);
             end
           end
+          /*
           num_trans_aleat:begin
             for(int i=0; i<aleatorio.aleat; i++)begin
               transacciones = new(); //Inicializa la clase Trans_Bus
@@ -131,8 +132,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
               transacciones.dato={transacciones.dato_rec, transacciones.dato_env, transacciones.informacion}; //Efectua una concatenacion de los datos de ID, terminal de envio e informacion pura
               agent_driver_mailbox[transacciones.dato_env].put(transacciones);
             end
-
-          end
+          end */
         endcase
       end
     end
