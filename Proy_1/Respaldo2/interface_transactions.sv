@@ -145,7 +145,7 @@ class trans_monitor #(parameter pckg_sz = 32);
     $display(" Tiempo de simulacion          =[%g]", $time);
     $display("[%s]" ,tag);
 		$display("Tiempo                         = %g", this.tiempo);
-		$display("Dato                           = %h", trans_bus.dato);
+		$display("Dato                           = %h", this.dato);
     $display("Terminal receptora Scoreboard  = %h", this.dato_rec_mnt );
 		$display("--------------------------------------------------------------");
     //$display("[%g] %s Tiempo=%g dato=0x%h Receptor=0x%h",$time,tag,this.dato,this.tiempo,this.dato_rec_mnt);
