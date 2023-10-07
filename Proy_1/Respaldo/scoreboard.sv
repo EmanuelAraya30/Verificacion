@@ -25,47 +25,46 @@ reporte reporte_inst;
 //Definición de variables
 int ret_drvrs[drvrs]; //Retardo x driver
 int cont_intruct_term[drvrs]; //contador de instrucciones x terminal
-int retardo_total = 0; // Retardo total
+int retardo_total = 0; 
 int inst_x_drvrs[drvrs]; // intrucciones x driver
 int cont_intruct = 0; //contador de instrucciones
 int cont_inst_bw = 0;
 int inicio = 0; //para calcular el tiempo inicial
 int tiempo_init = 0; //tiempo inicial
 int tiempo_fin = 0; // tiempo final
-
-int retardo_promedio;
-int ret_prom_drvrs[drvrs];
-int reporte;
-int AB_max;
-int AB_min;
-
+int retardo_promedio; // Medira el retardo promedio
+int ret_prom_drvrs[drvrs]; // Medira el retardo promedio de  cada driver
+int reporte; // Guarda lo del reporte
+int AB_max; // Guarda lo del ancho de banda maximo
+int AB_min; // Guarda lo del ancho de banda minimo
 
 
+//inicializa el scoreboard
 task run;
   $display("[%g] El Score Board fue inicializado",$time);
   forever begin
     #5
-    if(checker_scoreboard_mailbox.num()>0)begin
-      checker_scoreboard_mailbox.get(transacciones_i);
+    if(checker_scoreboard_mailbox.num()>0)begin // Ve que haya transacción esperando
+      checker_scoreboard_mailbox.get(transacciones_i); // Toma la transacción
       transacciones_i.print("Score Board: transacción recibida desde el checker");
-      retardo_total = retardo_total + transacciones_i.laten;
-      ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.laten;  
-      cont_intruct++;
+      retardo_total = retardo_total + transacciones_i.laten; // Calcula retardo general
+      ret_drvrs[transacciones_i.dev_rec] = ret_drvrs[transacciones_i.dev_rec] + transacciones_i.laten; // Calcula retardo por drvr  
+      cont_intruct++; //aumenta el contador
       inst_x_drvrs[transacciones_i.dev_rec]++;
-	  cont_inst_bw++;
+	    cont_inst_bw++;
       tiempo_fin = transacciones_i.tiempo_rec;
 
-      if(inicio == 1) begin
+      if(inicio == 1) begin //Reinicia el tiempo de transacción
         tiempo_init = transacciones_i.tiempo_env;
         inicio = 0;
       end
       scoreboard.push_back(transacciones_i);
     end 
     else begin
-      if(reporte_mailbox.num()>0)begin
-        reporte_mailbox.get(reporte_inst);
+      if(reporte_mailbox.num()>0)begin // Ve que haya transacción esperando
+        reporte_mailbox.get(reporte_inst); // La captura
         case(reporte_inst)
-        rpt_prom: begin
+        rpt_prom: begin // Se realiza el reporte de retardo promedio
             $display("[%g]Score Board: Recibida Orden Retardo Promedio", $time);
             retardo_promedio = retardo_total/cont_intruct;
             $display("[%g] Score board: el retardo promedio es: %0.3f", $time, retardo_promedio);
@@ -74,21 +73,21 @@ task run;
               $display("[%g] Score board: el retardo promedio en driver [%g] es: %0.3f", $time, i, ret_prom_drvrs[i]);
             end
           end
-          rpt_bw_max: begin
+          rpt_bw_max: begin // Se realiza el reporte de ancho de banda máximo
             $display("[%g]Score Board: Recibida Orden Reporte de ancho de banda maximo", $time);
-            AB_max = $fopen("AB_max.csv", "a");
+            AB_max = $fopen("AB_max.csv", "a"); // Guarda en .csv
             $fwrite(AB_max, "%0d,%0d,%0.3f\n", pckg_sz, drvrs, (cont_intruct*pckg_sz*1000)/(tiempo_fin-tiempo_init));
             $fclose(AB_max); 
           end
-          rpt_bw_min: begin
+          rpt_bw_min: begin // Se realiza el reporte de ancho de banda minimo
             $display("[%g]Score Board: Recibida Orden Reporte de ancho de banda minimo", $time);
-            AB_min = $fopen("AB_min.csv", "a");
+            AB_min = $fopen("AB_min.csv", "a"); // Guarda en .csv
             $fwrite(AB_min, "%0d,%0d,%0.3f\n", pckg_sz, drvrs, (cont_intruct*pckg_sz*1000)/(tiempo_fin-tiempo_init));
             $fclose(AB_min); 
           end
-          rpt_transac: begin
+          rpt_transac: begin // Se realiza el reporte de transacción
             $display("[%g]Score Board: Recibida Orden Reporte de transaccion", $time);
-            reporte = $fopen("reporte.csv", "w");
+            reporte = $fopen("reporte.csv", "w"); // Guarda en .csv
             $fwrite(reporte, "Dato recibido, Dato enviado, Tx, Rx, latencia, tipo\n");
             for(int i=0;i<cont_intruct;i++) begin
               auxiliar_trans = scoreboard.pop_front;
