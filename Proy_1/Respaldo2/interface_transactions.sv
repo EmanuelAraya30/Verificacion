@@ -39,7 +39,7 @@ class trans_bus #(parameter pckg_sz = 32, parameter drvrs=5);
   function void print(string tag = "");
     $display("BUS TRANSACCIONES");
     $display("--------------------------------------------------------------");
-    $display("[%g]",tag);
+    $display("[%s]",tag);
 		$display("Tiempo de envio = %g",  this.tiempo);
 		$display("Tipo de instruccion = %s", this.tipo );
     $display("Retardo = %g", this.retardo );
