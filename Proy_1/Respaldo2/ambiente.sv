@@ -25,7 +25,7 @@ class ambiente #(parameter pckg_sz=32, parameter drvrs=5, parameter bits=1, para
   // Declaración de la interface que conecta el DUT 
   virtual bus_if #(.pckg_sz(pckg_sz), .bits(bits), .drvrs(drvrs)) vif;
 
-  |//declaración de los mailboxes  
+  //declaración de los mailboxes  
   tam test_agent_mailbox; 
   adm agent_driver_mailbox[drvrs];
   dcm driver_checker_mailbox;
