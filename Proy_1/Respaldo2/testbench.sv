@@ -2,7 +2,7 @@
 
 `ifndef PRMT
 	parameter pckg_sz = 32;
-  	parameter drvrs = 16;
+  	parameter drvrs = 4;
 `endif
 
 
@@ -23,6 +23,7 @@ module tb;
   	parameter broadcast= {8{1'b1}};
 
 	reg clk;
+	reg reset;
 	always #5 clk=~clk;
 
 	
@@ -38,6 +39,18 @@ module tb;
         .D_pop(vif.Data_pop),
         .D_push(vif.D_push)
     );
+
+
+
+	initial begin
+		vif.rst[0] = reset;
+		reset =1;
+		@(posedge clk);
+			reset=0;
+	end
+
+
+
 	initial begin
 		clk=0;
 		test_inst=new();
