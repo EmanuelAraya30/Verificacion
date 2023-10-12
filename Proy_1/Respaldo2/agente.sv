@@ -7,16 +7,16 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
   trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) transacciones;
   
   int num_trans_ag; //numero de transacciones
-  int max_retardo_ag; 
+  int max_retardo_ag; //tiempo de retardo maximo
   int retardo_ag;
-  int max_terminales_ag;
-  bit [pckg_sz-13:0] info_ag;
-  bit [3:0] Tx_ag;
-  bit [7:0] Rx_ag;
+  int max_terminales_ag; //numero maximo de terminales
+  bit [pckg_sz-13:0] info_ag; //Informacion o datos que recibe el agente
+  bit [3:0] Tx_ag; // Terminal de envio del agente
+  bit [7:0] Rx_ag; //Terminal de recibo del agente
   
   
   task inicia();
-    $display("El agente se inicializa en el tiempo [%g]", $time);
+    $display("El agente se inicializa en el tiempo %g", $time);
     forever begin
       #1
       if (test_agent_mailbox.num()>0);begin
@@ -34,8 +34,8 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
             end		
 		  end
           
-          broadcast:begin //En cada terminal se hacen envios a todos
-            for(int j=0; j<num_trans_ag;j++)begin // j se mantiene consntate primero e i es variable 
+          broadcast:begin //En cada terminal se hacen envios a todas las terminales
+            for(int j=0; j<num_trans_ag;j++)begin  
               transacciones = new();
               transacciones.max_retardo= max_retardo_ag;
               transacciones.tipo=tipo;
@@ -49,7 +49,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
           
           
           
-          trans_todos:begin //Transacciones con retardo aleatorio
+          trans_todos:begin // Se efectuan transacciones entre todos los terminales
             for(int j=0; j<drvrs; j++)begin
               for(int i=0; i<drvrs; i++)begin
                 transacciones = new();
@@ -65,7 +65,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
             end
           end
           
-          retardo_min:begin //Transacciones especificas
+          retardo_min:begin //Transacciones entre terminales con retardo minimo 
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
               transacciones.retardo=retardo_ag;
@@ -78,7 +78,7 @@ class agent #(parameter bits=1,  parameter drvrs=4, parameter pckg_sz = 32);
           end
           
           
-          trans_determinada:begin //Transacciones especificas
+          trans_determinada:begin //Transacciones  especificas entre terminales
             for(int i=0; i<num_trans_ag; i++)begin
               transacciones = new();
               transacciones.retardo=retardo_ag;

@@ -94,7 +94,7 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz 
                 trans_mntr.tiempo = $time;
                 trans_mntr.dato_rec_mnt = id;
                 @(posedge FiFo_out.vif.clk);
-                trans_mntr.dato = FiFo_out.D_push;
+                trans_mntr.dato = FiFo_out.D_pop;
                 monitor_checker_mailbox.put(trans_mntr);
                 trans_mntr.print("Monitor: Transaccion recibida");
             end

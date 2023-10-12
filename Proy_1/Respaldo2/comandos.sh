@@ -3,7 +3,7 @@ source /mnt/vol_NFS_rh003/estudiantes/archivos_config/synopsys_tools.sh
 
 for pckg_sz in  32
         do
-        for drvrs in 4 8 16
+        for drvrs in 4 
         do
         printf "\x60define PRMT \n" > parameters.sv
         printf "parameter pckg_sz = %d;\nparameter drvrs = %d;\n" $pckg_sz $drvrs  >> parameters.sv
