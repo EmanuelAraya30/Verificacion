@@ -41,7 +41,7 @@ class fifo_driver #(parameter pckg_sz = 32, parameter bits = 1, parameter drvrs=
   
   
   function void Din_update(bit [pckg_sz-1:0] dato); 
-    fifo_queue.push_back(dato);    //Ingresa el dato en la fifo.
+    fifo_queue.push_back(dato);    //Ingresa un dato en la fifo proveniente de una terminal.
     pndng = 1;
   endfunction
 endclass
@@ -63,13 +63,13 @@ class driver_hijo #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5)
   task inicia();
     $display ("Driver # [%g] se inicializa en tiempo [%g]",ident,$time);
     fork
-      fifo_d.pen_update();
+      fifo_d.pen_update(); //Se ejecutan en paralelo las tareas de pending update y Dout update
       fifo_d.Dout_uptate();
     join_none
     
     
     @(posedge fifo_d.vif.clk);
-    fifo_d.vif.rst[ident]=1;
+    fifo_d.vif.rst[ident]=1; // Para cada flanco de reloj positivo pone en alto el valor de reset para cada fifo de la interfaz virtual
     @(posedge fifo_d.vif.clk);
     forever begin 
       trans_bus #(.pckg_sz(pckg_sz), .drvrs(drvrs)) transacciones;
