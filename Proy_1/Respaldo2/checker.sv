@@ -34,10 +34,10 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
 
   //Se inicializa el checker y se guardan las transacciones del agente
   task guardar;
-    $display("[%g]  El checker fue inicializado",$time);
+    $display("El checker fue inicializado en tiempo %g",$time);
     forever begin
       driver_checker_mailbox.get(transaccion);
-      $display("[%g]  Checker: Se recibe trasacción desde el driver/Agente",$time);
+      $display("Checker: Se recibe trasacción desde el driver/Agente en tiempo %g",$time);
       emul_queue[transaccion.dato_rec].push_back(transaccion);    
     end 
   endtask
@@ -46,7 +46,7 @@ class checker #(parameter pckg_sz = 32, parameter bits=1, parameter drvrs=5);
     forever begin
       to_sb = new(); //Transacciones de Scoreboard
       monitor_checker_mailbox.get(mntr_trans);
-      $display("[%g]  Checker: Se recibe trasacción desde el monitor",$time);
+      $display("Checker: Se recibe trasacción desde el monitor en tiempo %g",$time);
       for(int i=0; i<emul_queue[mntr_trans.dato_rec_mnt].size(); i++)begin // Recorre las transacciones
         if(emul_queue[mntr_trans.dato_rec_mnt][i].dato==mntr_trans.dato)begin // Las compara con lo que se obtiene en monitor
           to_sb.dato_env=emul_queue[mntr_trans.dato_rec_mnt][i].dato;

@@ -111,7 +111,7 @@ endclass
 class trans_monitor #(parameter pckg_sz = 32);
   bit[pckg_sz-1:0] dato; // este es el dato de la transacción
   int tiempo; //Representa el tiempo  de la simulación en el que se ejecutó la transacción 
-  bit [7:0] dato_rec_mnt;
+  bit [7:0] dato_rec_mnt; 
 
   function new(bit[pckg_sz-1:0] dto=0,int tmp = 0, int rx_mnt= 0);
     this.dato = dto;

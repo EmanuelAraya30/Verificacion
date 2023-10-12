@@ -80,7 +80,7 @@ class monitor_hijo #(parameter drvrs = 5, parameter bits = 1, parameter pckg_sz 
 
     //Se inicializa el monitor
     task inicia();
-        $display("[%g]  El Monitor [%g] inicializado", $time, id);
+        $display("El Monitor %g se ha  inicializado en el tiempo",id, $time);
         fork
             FiFo_out.PUSH();
             FiFo_out.D_PUSH();
